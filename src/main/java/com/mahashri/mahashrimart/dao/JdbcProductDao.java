@@ -85,6 +85,50 @@ public class JdbcProductDao extends JdbcDao implements ProductDao {
         }
     }
 
+    @Override
+    public List<Product> findBySellerId(long sellerId) throws SQLException {
+        String sql = "SELECT p.id, p.seller_id, u.name AS seller_name, p.name, p.description, p.price, " +
+                "p.stock_qty, p.category, p.image_url, p.created_at " +
+                "FROM products p JOIN users u ON u.id = p.seller_id " +
+                "WHERE p.seller_id = ? ORDER BY p.created_at DESC, p.id DESC";
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, sellerId);
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) products.add(map(result));
+            }
+        }
+        return products;
+    }
+
+    @Override
+    public boolean update(long id, ProductRequest request) throws SQLException {
+        String sql = "UPDATE products SET name = ?, description = ?, price = ?, stock_qty = ?, " +
+                "category = ?, image_url = ? WHERE id = ?";
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, request.name());
+            statement.setString(2, request.description());
+            statement.setBigDecimal(3, request.price());
+            statement.setInt(4, request.stockQty());
+            statement.setString(5, request.category());
+            statement.setString(6, request.imageUrl().isBlank() ? null : request.imageUrl());
+            statement.setLong(7, id);
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    @Override
+    public boolean delete(long id) throws SQLException {
+        String sql = "DELETE FROM products WHERE id = ?";
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            return statement.executeUpdate() == 1;
+        }
+    }
+
     static Product map(ResultSet result) throws SQLException {
         Product product = new Product();
         product.setId(result.getLong("id"));
