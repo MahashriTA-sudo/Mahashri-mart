@@ -129,6 +129,51 @@ public class JdbcProductDao extends JdbcDao implements ProductDao {
         }
     }
 
+    @Override
+    public List<Product> search(String keyword, String category) throws SQLException {
+        StringBuilder sql = new StringBuilder(
+                "SELECT p.id, p.seller_id, u.name AS seller_name, p.name, p.description, p.price, " +
+                "p.stock_qty, p.category, p.image_url, p.created_at " +
+                "FROM products p JOIN users u ON u.id = p.seller_id WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (keyword != null && !keyword.isBlank()) {
+            sql.append(" AND (LOWER(p.name) LIKE ? OR LOWER(p.description) LIKE ?)");
+            String likeTerm = "%" + keyword.toLowerCase() + "%";
+            params.add(likeTerm);
+            params.add(likeTerm);
+        }
+        if (category != null && !category.isBlank()) {
+            sql.append(" AND p.category = ?");
+            params.add(category);
+        }
+        sql.append(" ORDER BY p.created_at DESC, p.id DESC");
+
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                statement.setObject(i + 1, params.get(i));
+            }
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) products.add(map(result));
+            }
+        }
+        return products;
+    }
+
+    @Override
+    public List<String> listCategories() throws SQLException {
+        String sql = "SELECT DISTINCT category FROM products ORDER BY category";
+        List<String> categories = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+            while (result.next()) categories.add(result.getString("category"));
+        }
+        return categories;
+    }
+
     static Product map(ResultSet result) throws SQLException {
         Product product = new Product();
         product.setId(result.getLong("id"));

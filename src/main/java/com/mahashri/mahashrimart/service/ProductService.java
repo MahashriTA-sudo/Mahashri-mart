@@ -43,4 +43,12 @@ public class ProductService {
         }
         productDao.delete(productId);
     }
+
+    public List<Product> search(String keyword, String category) throws SQLException {
+        return productDao.search(keyword, category);
+    }
+
+    public List<String> listCategories() throws SQLException {
+        return productDao.listCategories();
+    }
 }

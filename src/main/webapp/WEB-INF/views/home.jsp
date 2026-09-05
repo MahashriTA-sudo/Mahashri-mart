@@ -30,29 +30,50 @@
         </div>
         <span class="result-count"><c:out value="${products.size()}"/> finds</span>
     </div>
-    <div class="product-grid">
-        <c:forEach var="product" items="${products}">
-            <article class="product-card">
-                <a class="product-image-wrap" href="<c:out value='${pageContext.request.contextPath}'/>/product?id=<c:out value='${product.id}'/>">
-                    <c:choose>
-                        <c:when test="${not empty product.imageUrl}">
-                            <img class="product-image" src="<c:out value='${product.imageUrl}'/>" alt="<c:out value='${product.name}'/>">
-                        </c:when>
-                        <c:otherwise><div class="image-placeholder"><span>Mahashri</span></div></c:otherwise>
-                    </c:choose>
-                    <span class="category-pill"><c:out value="${product.category}"/></span>
-                </a>
-                <div class="product-info">
-                    <div class="product-meta">
-                        <h3><a href="<c:out value='${pageContext.request.contextPath}'/>/product?id=<c:out value='${product.id}'/>"><c:out value="${product.name}"/></a></h3>
-                        <strong>&#8377;<fmt:formatNumber value="${product.price}" minFractionDigits="2"/></strong>
-                    </div>
-                    <p><c:out value="${product.description}"/></p>
-                    <span class="seller-line">by <c:out value="${product.sellerName}"/></span>
-                </div>
-            </article>
-        </c:forEach>
-    </div>
+    <form method="get" action="<c:out value='${pageContext.request.contextPath}'/>/#marketplace" class="add-row" style="margin-bottom: 24px;">
+        <input type="text" name="q" placeholder="Search products..." value="<c:out value='${q}'/>" style="flex: 1;">
+        <select name="category" style="width: 180px;">
+            <option value="">All categories</option>
+            <c:forEach var="cat" items="${categories}">
+                <option value="<c:out value='${cat}'/>" ${cat == selectedCategory ? 'selected' : ''}><c:out value="${cat}"/></option>
+            </c:forEach>
+        </select>
+        <button type="submit" class="button button-small">Search</button>
+    </form>
+    <c:choose>
+        <c:when test="${empty products}">
+            <div class="empty-state">
+                <p class="empty-mark">&#9679;</p>
+                <h2>No products found.</h2>
+                <p>Try a different search term or category.</p>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="product-grid">
+                <c:forEach var="product" items="${products}">
+                    <article class="product-card">
+                        <a class="product-image-wrap" href="<c:out value='${pageContext.request.contextPath}'/>/product?id=<c:out value='${product.id}'/>">
+                            <c:choose>
+                                <c:when test="${not empty product.imageUrl}">
+                                    <img class="product-image" src="<c:out value='${product.imageUrl}'/>" alt="<c:out value='${product.name}'/>">
+                                </c:when>
+                                <c:otherwise><div class="image-placeholder"><span>Mahashri</span></div></c:otherwise>
+                            </c:choose>
+                            <span class="category-pill"><c:out value="${product.category}"/></span>
+                        </a>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <h3><a href="<c:out value='${pageContext.request.contextPath}'/>/product?id=<c:out value='${product.id}'/>"><c:out value="${product.name}"/></a></h3>
+                                <strong>&#8377;<fmt:formatNumber value="${product.price}" minFractionDigits="2"/></strong>
+                            </div>
+                            <p><c:out value="${product.description}"/></p>
+                            <span class="seller-line">by <c:out value="${product.sellerName}"/></span>
+                        </div>
+                    </article>
+                </c:forEach>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </section>
 <section class="seller-callout">
     <div class="container seller-callout-inner">
