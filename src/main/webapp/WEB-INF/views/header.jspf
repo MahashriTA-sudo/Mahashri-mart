@@ -22,6 +22,7 @@
                 <a class="cart-link" href="<c:out value='${pageContext.request.contextPath}'/>/cart">Cart</a>
             </c:if>
             <c:if test="${not empty sessionScope.user and sessionScope.user.role == 'SELLER'}">
+                <a href="<c:out value='${pageContext.request.contextPath}'/>/seller/products">My listings</a>
                 <a href="<c:out value='${pageContext.request.contextPath}'/>/seller/products/new">Sell a product</a>
             </c:if>
         </nav>
