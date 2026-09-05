@@ -22,11 +22,19 @@ public class ProductServlet extends ServletUtil {
                 return;
             }
             request.setAttribute("product", product);
+            request.setAttribute("reviews", services(request).reviews().forProduct(id));
+            request.setAttribute("averageRating", services(request).reviews().averageRating(id));
             if ("1".equals(request.getParameter("created"))) {
                 request.setAttribute("success", "Your listing is live.");
             }
             if ("stock".equals(request.getParameter("error"))) {
                 request.setAttribute("error", "There is not enough stock for that quantity.");
+            }
+            if ("1".equals(request.getParameter("reviewed"))) {
+                request.setAttribute("success", "Thanks for your review!");
+            }
+            if ("1".equals(request.getParameter("reviewError"))) {
+                request.setAttribute("error", "We could not save your review. Please try again.");
             }
             view(request, response, "product");
         } catch (Exception ex) {
