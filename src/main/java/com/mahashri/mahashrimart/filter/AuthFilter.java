@@ -31,6 +31,10 @@ public class AuthFilter implements Filter {
             httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
+        if (path.startsWith("/admin/") && user.getRole() != Role.ADMIN) {
+            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
         if (path.startsWith("/checkout") || path.startsWith("/cart") || path.startsWith("/orders")) {
             if (user.getRole() != Role.BUYER) {
                 httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
