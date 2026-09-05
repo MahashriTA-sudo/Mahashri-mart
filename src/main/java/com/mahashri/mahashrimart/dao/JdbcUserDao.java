@@ -5,6 +5,8 @@ import com.mahashri.mahashrimart.model.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class JdbcUserDao extends JdbcDao implements UserDao {
@@ -37,6 +39,18 @@ public class JdbcUserDao extends JdbcDao implements UserDao {
                 return keys.getLong(1);
             }
         }
+    }
+
+    @Override
+    public List<User> findAll() throws SQLException {
+        String sql = "SELECT id, name, email, password_hash, role, created_at FROM users ORDER BY created_at DESC, id DESC";
+        List<User> users = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+            while (result.next()) users.add(map(result));
+        }
+        return users;
     }
 
     static User map(ResultSet result) throws SQLException {

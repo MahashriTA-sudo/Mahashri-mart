@@ -51,4 +51,8 @@ public class ProductService {
     public List<String> listCategories() throws SQLException {
         return productDao.listCategories();
     }
+
+    public void adminDelete(long productId) throws SQLException {
+        productDao.delete(productId);
+    }
 }

@@ -1,9 +1,9 @@
 INSERT INTO users (name, email, password_hash, role) VALUES
-('Mahashri Admin', 'admin@mahashri.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'ADMIN'),
-('Aarav Organics', 'seller1@mahashri.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'SELLER'),
-('Meera Homeware', 'seller2@mahashri.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'SELLER'),
-('Riya Sharma', 'buyer1@mahashri.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'BUYER'),
-('Kabir Patel', 'buyer2@mahashri.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'BUYER');
+('Mahashri Admin', 'admin@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'ADMIN'),
+('Aarav Organics', 'seller1@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
+('Meera Homeware', 'seller2@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
+('Riya Sharma', 'buyer1@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER'),
+('Kabir Patel', 'buyer2@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER');
 
 INSERT INTO products (seller_id, name, description, price, stock_qty, category, image_url) VALUES
 (2, 'Almond Granola', 'Small-batch toasted oats, almonds, and jaggery for an easy morning start.', 349.00, 24, 'Pantry', 'https://images.unsplash.com/photo-1517093728432-a0440f8d45af?auto=format&fit=crop&w=900&q=80'),

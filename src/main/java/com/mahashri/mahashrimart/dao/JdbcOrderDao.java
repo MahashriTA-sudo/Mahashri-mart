@@ -61,6 +61,26 @@ public class JdbcOrderDao extends JdbcDao implements OrderDao {
         return orders;
     }
 
+    @Override
+    public List<Order> findAll() throws SQLException {
+        String orderSql = "SELECT id, buyer_id, status, total_amount, created_at FROM orders " +
+                "ORDER BY created_at DESC, id DESC";
+        String itemSql = "SELECT oi.id, oi.order_id, oi.product_id, p.name AS product_name, oi.quantity, oi.unit_price " +
+                "FROM order_items oi JOIN products p ON p.id = oi.product_id WHERE oi.order_id = ? ORDER BY oi.id";
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement orderStatement = connection.prepareStatement(orderSql)) {
+            try (ResultSet result = orderStatement.executeQuery()) {
+                while (result.next()) {
+                    Order order = mapOrder(result);
+                    order.setItems(findItems(connection, itemSql, order.getId()));
+                    orders.add(order);
+                }
+            }
+        }
+        return orders;
+    }
+
     private static List<OrderItem> findItems(Connection connection, String sql, long orderId) throws SQLException {
         List<OrderItem> items = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

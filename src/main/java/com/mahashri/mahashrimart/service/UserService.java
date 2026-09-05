@@ -9,6 +9,7 @@ import com.mahashri.mahashrimart.model.User;
 import com.mahashri.mahashrimart.util.PasswordUtil;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -35,5 +36,9 @@ public class UserService {
             throw new AuthenticationException("Email or password is incorrect.");
         }
         return user.get();
+    }
+
+    public List<User> listAll() throws SQLException {
+        return userDao.findAll();
     }
 }

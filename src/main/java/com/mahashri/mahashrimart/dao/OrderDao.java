@@ -11,4 +11,5 @@ public interface OrderDao {
     void addItem(Connection connection, long orderId, long productId, int quantity, java.math.BigDecimal unitPrice)
             throws SQLException;
     List<Order> findByBuyerId(long buyerId) throws SQLException;
+    List<Order> findAll() throws SQLException;
 }
