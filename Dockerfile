@@ -4,4 +4,4 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
 EXPOSE 8080
-CMD ["mvn", "-o", "compile", "exec:java"]
+CMD ["mvn", "-o", "package", "exec:java", "-DskipTests"]
