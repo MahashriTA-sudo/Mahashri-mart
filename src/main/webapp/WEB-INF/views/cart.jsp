@@ -6,7 +6,7 @@
             <p class="eyebrow">YOUR BAG</p>
             <h1>A few good things.</h1>
         </div>
-        <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/">← Continue shopping</a>
+        <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/">&#8592; Continue shopping</a>
     </div>
     <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
     <c:choose>
