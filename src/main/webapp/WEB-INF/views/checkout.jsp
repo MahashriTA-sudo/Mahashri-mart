@@ -11,13 +11,13 @@
     <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
     <div class="checkout-layout">
         <section class="checkout-card">
-            <div class="mock-payment-badge"><span>✓</span> Secure mock payment</div>
+            <div class="mock-payment-badge"><span>&#10003;</span> Secure mock payment</div>
             <h2>Confirm your order</h2>
             <p class="checkout-copy">This MVP uses a mock payment confirmation. Press the button below to place the order and reserve your items.</p>
             <div class="checkout-items">
                 <c:forEach var="item" items="${items}">
                     <div class="checkout-item">
-                        <span><c:out value="${item.quantity}"/> × <c:out value="${item.productName}"/></span>
+                        <span><c:out value="${item.quantity}"/> &times; <c:out value="${item.productName}"/></span>
                         <strong>&#8377;<fmt:formatNumber value="${item.lineTotal}" minFractionDigits="2"/></strong>
                     </div>
                 </c:forEach>

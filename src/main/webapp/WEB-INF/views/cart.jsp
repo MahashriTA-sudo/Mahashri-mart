@@ -12,7 +12,7 @@
     <c:choose>
         <c:when test="${empty items}">
             <div class="empty-state">
-                <div class="empty-mark">✦</div>
+                <div class="empty-mark">&#10022;</div>
                 <h2>Your cart is waiting for its first find.</h2>
                 <p>Explore the marketplace and bring something thoughtful home.</p>
                 <a class="button" href="<c:out value='${pageContext.request.contextPath}'/>/">Browse goods <span>&#8594;</span></a>
