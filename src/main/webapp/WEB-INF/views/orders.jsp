@@ -6,16 +6,16 @@
             <p class="eyebrow">YOUR JOURNEY</p>
             <h1>Order history.</h1>
         </div>
-        <a class="button button-small" href="<c:out value='${pageContext.request.contextPath}'/>/">Shop more <span>&#8594;</span></a>
+        <a class="button button-small" href="<c:out value='${pageContext.request.contextPath}'/>/products">Shop more <span>&#8594;</span></a>
     </div>
     <c:if test="${not empty success}"><div class="notice notice-success"><c:out value="${success}"/></div></c:if>
     <c:choose>
         <c:when test="${empty orders}">
             <div class="empty-state">
-                <div class="empty-mark">○</div>
+                <div class="empty-mark">&#9679;</div>
                 <h2>Your first order will live here.</h2>
                 <p>There are plenty of thoughtful goods waiting to be discovered.</p>
-                <a class="button" href="<c:out value='${pageContext.request.contextPath}'/>/">Explore marketplace <span>&#8594;</span></a>
+                <a class="button" href="<c:out value='${pageContext.request.contextPath}'/>/products">Explore marketplace</a>
             </div>
         </c:when>
         <c:otherwise>
@@ -31,10 +31,10 @@
                         </div>
                         <div class="order-items">
                             <c:forEach var="item" items="${order.items}">
-                                <div class="order-item"><span><c:out value="${item.quantity}"/> × <c:out value="${item.productName}"/></span><strong>&#8377;<fmt:formatNumber value="${item.lineTotal}" minFractionDigits="2"/></strong></div>
+                                <div class="order-item"><span><c:out value="${item.productName}"/></span></div>
                             </c:forEach>
                         </div>
-                        <div class="order-total"><span>Total</span><strong>&#8377;<fmt:formatNumber value="${order.totalAmount}" minFractionDigits="2"/></strong></div>
+                        <div class="order-total"><span>Total</span><strong>&#8377;<c:out value="${order.total}"/></strong></div>
                     </article>
                 </c:forEach>
             </div>
