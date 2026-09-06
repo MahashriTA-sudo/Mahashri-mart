@@ -6,7 +6,7 @@
             <p class="eyebrow">MOCK CHECKOUT</p>
             <h1>One last look.</h1>
         </div>
-        <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/cart">← Back to cart</a>
+        <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/cart">&#8592; Back to cart</a>
     </div>
     <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
     <div class="checkout-layout">

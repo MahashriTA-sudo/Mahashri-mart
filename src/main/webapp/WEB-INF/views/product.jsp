@@ -3,7 +3,7 @@
 <div class="container detail-page">
     <c:if test="${not empty success}"><div class="notice notice-success"><c:out value="${success}"/></div></c:if>
     <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
-    <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/">← Back to marketplace</a>
+    <a class="back-link" href="<c:out value='${pageContext.request.contextPath}'/>/">&#8592; Back to marketplace</a>
     <div class="detail-grid">
         <div class="detail-image">
             <c:choose>
