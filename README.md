@@ -2,6 +2,8 @@
 
 MahashriMart is a Java 17 multi-seller marketplace built with Servlets on Tomcat 9, JSP/JSTL, JDBC, H2, and HikariCP.
 
+**Live demo:** https://mahashri-mart.onrender.com
+
 ## Features
 
 - **Authentication** — registration and login for buyers and sellers, with bcrypt password hashing and session-based auth
@@ -19,8 +21,20 @@ MahashriMart is a Java 17 multi-seller marketplace built with Servlets on Tomcat
 - HikariCP connection pooling
 - jBCrypt for password hashing
 - JUnit 5 + Mockito for unit tests
+- Docker (for deployment)
 
-## Run locally
+## Run locally with Docker (recommended)
+
+Requires Docker Desktop installed.
+
+```bash
+docker build -t mahashrimart .
+docker run -p 8080:8080 mahashrimart
+```
+
+The app will be available at `http://localhost:8080/`.
+
+## Run locally without Docker
 
 Requires JDK 17, Maven, and Apache Tomcat 9.0.x installed separately.
 
@@ -28,4 +42,8 @@ Requires JDK 17, Maven, and Apache Tomcat 9.0.x installed separately.
 mvn clean package
 ```
 
-Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at:
+Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at `http://localhost:8080/mahashrimart`.
+
+## Deployment
+
+This project is deployed on [Render](https://render.com) using the included `Dockerfile`. Render auto-builds and redeploys on every push to the `main` branch.
