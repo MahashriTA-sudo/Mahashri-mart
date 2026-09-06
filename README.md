@@ -47,3 +47,8 @@ Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder,
 ## Deployment
 
 This project is deployed on [Render](https://render.com) using the included `Dockerfile`. Render auto-builds and redeploys on every push to the `main` branch.
+
+## Known Limitations
+
+- **Data persistence:** The app currently uses H2 in in-memory mode (`jdbc:h2:mem`) rather than a persistent database. This was a deliberate trade-off for this deployment checkpoint — the free hosting tier used does not provide persistent disk storage, so even a file-based H2 setup would not survive container restarts. As a result, data resets to the seeded demo dataset whenever the app restarts, or when the free-tier instance spins down after inactivity and wakes back up. A production-grade fix would involve a managed external database (e.g., a free-tier PostgreSQL or MySQL instance hosted in the cloud) or upgrading to a hosting plan with persistent disk support.
+- **Seller order visibility:** Sellers can currently manage their own listings, but there is no dedicated view yet for sellers to see incoming orders containing their products. This is planned as a follow-up enhancement.
