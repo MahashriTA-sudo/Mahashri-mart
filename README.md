@@ -1,31 +1,31 @@
 # MahashriMart
 
-MahashriMart is a Java 17 multi-seller marketplace MVP built with Servlets on Tomcat 9, JSP/JSTL, JDBC, H2, and HikariCP.
+MahashriMart is a Java 17 multi-seller marketplace built with Servlets on Tomcat 9, JSP/JSTL, JDBC, H2, and HikariCP.
+
+## Features
+
+- **Authentication** — registration and login for buyers and sellers, with bcrypt password hashing and session-based auth
+- **Product browsing** — search by keyword and filter by category
+- **Cart & checkout** — add/update/remove items, mock payment confirmation, order history
+- **Seller dashboard** — sellers can create, edit, and delete their own product listings
+- **Admin panel** — view all users and orders, and remove any product listing
+- **Reviews & ratings** — buyers can leave a 1–5 star rating with an optional comment on any product
+
+## Tech stack
+
+- Java 17, Maven, Apache Tomcat 9.0.x
+- Java Servlets (`javax.servlet.*`), JSP + JSTL
+- JDBC with H2 (embedded, in-memory)
+- HikariCP connection pooling
+- jBCrypt for password hashing
+- JUnit 5 + Mockito for unit tests
 
 ## Run locally
 
+Requires JDK 17, Maven, and Apache Tomcat 9.0.x installed separately.
+
 ```bash
-cd mahashrimart
 mvn clean package
-mvn tomcat9:run
 ```
 
-Open `http://localhost:8080/`.
-
-The application uses an embedded H2 database at `jdbc:h2:mem:mahashrimart;DB_CLOSE_DELAY=-1`. Set `MAHASHRIMART_DB_URL` to override it for a server-mode H2 database later.
-
-## Seed accounts
-
-All seeded accounts use the password `password`:
-
-- `admin@mahashri.com` — ADMIN
-- `seller1@mahashri.com` — SELLER
-- `seller2@mahashri.com` — SELLER
-- `buyer1@mahashri.com` — BUYER
-- `buyer2@mahashri.com` — BUYER
-
-## MVP flow
-
-Registration and login are available for buyers and sellers. Buyers can browse products, add and update cart items, complete the mock checkout, and review order history. Sellers can publish product listings.
-
-Admin panel, reviews, search, seller dashboard, payments, and post-confirmation order workflows are intentionally outside this MVP.
+Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at:
