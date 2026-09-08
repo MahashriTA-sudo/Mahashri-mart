@@ -3,7 +3,13 @@ INSERT INTO users (name, email, password_hash, role) VALUES
 ('Aarav Organics', 'seller1@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
 ('Meera Homeware', 'seller2@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
 ('Riya Sharma', 'buyer1@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER'),
-('Kabir Patel', 'buyer2@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER');
+('Kabir Patel', 'buyer2@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER'),
+('Vikram Electronics', 'seller3@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
+('Priya Fashion House', 'seller4@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
+('Sri Lakshmi Traders', 'seller5@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'SELLER'),
+('Ananya Iyer', 'buyer3@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER'),
+('Rahul Verma', 'buyer4@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER'),
+('Sneha Reddy', 'buyer5@mahashri.com', '$2a$12$hMeJtnORtogZZDgs0Dzpy.NwYkf1eogwNtaNEPxaHavVrROuK5dw2', 'BUYER');
 
 INSERT INTO products (seller_id, name, description, price, stock_qty, category, image_url) VALUES
 (2, 'Almond Granola', 'Small-batch toasted oats, almonds, and jaggery for an easy morning start.', 349.00, 24, 'Pantry', 'https://images.unsplash.com/photo-1517093728432-a0440f8d45af?auto=format&fit=crop&w=900&q=80'),
@@ -13,4 +19,19 @@ INSERT INTO products (seller_id, name, description, price, stock_qty, category, 
 (3, 'Terracotta Serving Bowl', 'Hand-shaped terracotta bowl with a warm matte finish.', 699.00, 9, 'Home', 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=900&q=80'),
 (3, 'Linen Kitchen Towels', 'Set of two absorbent, everyday linen towels in natural tones.', 549.00, 16, 'Home', 'https://images.pexels.com/photos/4794899/pexels-photo-4794899.jpeg'),
 (3, 'Neem Wood Comb', 'Smooth, hand-finished neem wood comb for a simple daily ritual.', 199.00, 28, 'Wellness', 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=900&q=80'),
-(3, 'Handwoven Cotton Throw', 'Breathable handwoven cotton throw for sofas, beds, and reading corners.', 1299.00, 7, 'Home', 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=900&q=80');
+(3, 'Handwoven Cotton Throw', 'Breathable handwoven cotton throw for sofas, beds, and reading corners.', 1299.00, 7, 'Home', 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=900&q=80'),
+(6, 'Wireless Bluetooth Earbuds', 'Compact in-ear earbuds with 20hr battery life and charging case.', 1499.00, 40, 'Electronics', 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=900&q=80'),
+(6, 'USB-C Fast Charger 33W', 'Compact fast charger compatible with most Android and iOS devices.', 899.00, 60, 'Electronics', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=80'),
+(6, 'Portable Power Bank 10000mAh', 'Slim power bank with dual USB output and LED charge indicator.', 1199.00, 35, 'Electronics', 'https://images.unsplash.com/photo-1609592806596-4d1b5eb8f8e1?auto=format&fit=crop&w=900&q=80'),
+(6, 'Bluetooth Neckband Earphones', 'Sweat-resistant neckband earphones with magnetic buds and 12hr battery.', 999.00, 45, 'Electronics', 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=900&q=80'),
+(6, 'Smartwatch Fitness Band', 'Fitness tracker with heart rate monitor, step counter, and notifications.', 2199.00, 25, 'Electronics', 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80'),
+(7, 'Men''s Cotton Casual Shirt', 'Slim-fit cotton shirt available in multiple colors, breathable fabric.', 799.00, 45, 'Clothing', 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=80'),
+(7, 'Women''s Kurti Set', 'Printed cotton kurti with matching palazzo, everyday wear.', 1099.00, 30, 'Clothing', 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80'),
+(7, 'Women''s Ethnic Anarkali Gown', 'Floor-length anarkali gown with embroidered yoke, festive wear.', 2199.00, 20, 'Clothing', 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=900&q=80'),
+(7, 'Kids Graphic T-Shirt', 'Soft cotton t-shirt with printed graphic design for kids.', 349.00, 60, 'Clothing', 'https://images.unsplash.com/photo-1519278409-1f56fdda7fe5?auto=format&fit=crop&w=900&q=80'),
+(7, 'Formal Trousers', 'Slim-fit formal trousers, wrinkle-resistant fabric, office wear.', 1299.00, 35, 'Clothing', 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=80'),
+(8, 'Basmati Rice 5kg', 'Premium long-grain basmati rice, aged for aroma and taste.', 599.00, 100, 'Groceries', 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80'),
+(8, 'Toor Dal 1kg', 'Unpolished toor dal, rich in protein, sourced from local farms.', 149.00, 120, 'Groceries', 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=900&q=80'),
+(8, 'Cold Pressed Groundnut Oil 1L', 'Chemical-free cold pressed oil, ideal for everyday cooking.', 259.00, 80, 'Groceries', 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=900&q=80'),
+(8, 'Cold Pressed Coconut Oil 500ml', 'Pure cold pressed coconut oil, unrefined, ideal for cooking and hair care.', 219.00, 65, 'Groceries', 'https://images.unsplash.com/photo-1590167911930-88f8bc4ceccb?auto=format&fit=crop&w=900&q=80'),
+(8, 'Organic Jaggery 1kg', 'Traditional unrefined jaggery, no added chemicals.', 179.00, 90, 'Groceries', 'https://images.unsplash.com/photo-1621347736020-4c4f4a4d7fc4?auto=format&fit=crop&w=900&q=80');
