@@ -34,7 +34,7 @@
                                 <div class="order-item"><span><c:out value="${item.productName}"/></span></div>
                             </c:forEach>
                         </div>
-                        <div class="order-total"><span>Total</span><strong>&#8377;<c:out value="${order.total}"/></strong></div>
+                        <div class="order-total"><span>Total</span><strong>&#8377;<c:out value="${order.totalAmount}"/></strong></div>
                     </article>
                 </c:forEach>
             </div>
