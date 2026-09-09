@@ -26,6 +26,9 @@
                 <a href="<c:out value='${pageContext.request.contextPath}'/>/seller/products/new">Sell a product</a>
                 <a href="<c:out value='${pageContext.request.contextPath}'/>/seller/orders">Incoming orders</a>
             </c:if>
+            <c:if test="${not empty sessionScope.user and sessionScope.user.role == 'ADMIN'}">
+                <a href="<c:out value='${pageContext.request.contextPath}'/>/admin">Admin dashboard</a>
+            </c:if>
         </nav>
         <div class="nav-account">
             <c:choose>
