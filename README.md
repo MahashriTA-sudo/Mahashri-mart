@@ -78,7 +78,7 @@ Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder,
 
 ## Seed accounts
 
-All seed accounts share the same password pattern set up during database seeding.
+All seed accounts share the same password: **`password`**
 
 | Role | Name | Email |
 |---|---|---|
