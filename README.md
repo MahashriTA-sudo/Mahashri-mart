@@ -78,11 +78,24 @@ Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder,
 
 ## Seed accounts
 
-| Role | Email | Notes |
+All seed accounts share the same password pattern set up during database seeding.
+
+| Role | Name | Email |
 |---|---|---|
-| Admin | admin@mahashri.com | Full store overview: users, orders, product moderation |
-| Buyer | buyer2@mahashri.com | Sample buyer with an order history |
-| Seller | seller7@mahashri.com | Campus Essentials — School / Office Supplies |
+| Admin | Mahashri Admin | admin@mahashri.com |
+| Seller | Aarav's Toy Corner | seller1@mahashri.com |
+| Seller | Meera Homeware | seller2@mahashri.com |
+| Seller | Vikram Electronics | seller3@mahashri.com |
+| Seller | Priya Gems & Jewels | seller4@mahashri.com |
+| Seller | Sri Lakshmi Traders | seller5@mahashri.com |
+| Seller | Paper & Ink Co. | seller6@mahashri.com |
+| Seller | Campus Essentials | seller7@mahashri.com |
+| Seller | ColorCraft Studio | seller8@mahashri.com |
+| Buyer | Riya Sharma | buyer1@mahashri.com |
+| Buyer | Kabir Patel | buyer2@mahashri.com |
+| Buyer | Ananya Iyer | buyer3@mahashri.com |
+| Buyer | Rahul Verma | buyer4@mahashri.com |
+| Buyer | Sneha Reddy | buyer5@mahashri.com |
 
 ## Deployment
 
