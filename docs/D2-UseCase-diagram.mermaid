@@ -1,0 +1,34 @@
+flowchart LR
+    Buyer(["Buyer"])
+    Seller(["Seller"])
+    Admin(["Admin"])
+
+    subgraph System["MahashriMart"]
+        UC1(["Register / Login"])
+        UC2(["Browse & Search Products"])
+        UC3(["Manage Cart"])
+        UC4(["Checkout (Mock Payment)"])
+        UC5(["View Order History"])
+        UC6(["Leave Product Review & Rating"])
+        UC7(["Create / Edit / Delete Listing"])
+        UC8(["View Incoming Orders"])
+        UC9(["View All Users"])
+        UC10(["View All Orders"])
+        UC11(["Moderate / Remove Any Listing"])
+    end
+
+    Buyer --> UC1
+    Buyer --> UC2
+    Buyer --> UC3
+    Buyer --> UC4
+    Buyer --> UC5
+    Buyer --> UC6
+
+    Seller --> UC1
+    Seller --> UC7
+    Seller --> UC8
+
+    Admin --> UC1
+    Admin --> UC9
+    Admin --> UC10
+    Admin --> UC11
