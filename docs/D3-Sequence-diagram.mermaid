@@ -1,0 +1,48 @@
+sequenceDiagram
+    actor Buyer
+    participant Browser
+    participant AuthFilter
+    participant CheckoutServlet
+    participant OrderService
+    participant CartDao
+    participant ProductDao
+    participant OrderDao
+    participant Database as H2 Database
+
+    Buyer->>Browser: Click "Confirm and place order"
+    Browser->>AuthFilter: POST /checkout
+    AuthFilter->>AuthFilter: Verify session
+    AuthFilter->>CheckoutServlet: Forward request
+    CheckoutServlet->>OrderService: checkout(buyerId)
+
+    OrderService->>CartDao: findByUserId(buyerId)
+    CartDao->>Database: SELECT cart_items
+    Database-->>CartDao: cart rows
+    CartDao-->>OrderService: List<CartItem>
+
+    loop for each cart item
+        OrderService->>ProductDao: findByIdForUpdate(productId)
+        ProductDao->>Database: SELECT product FOR UPDATE
+        Database-->>ProductDao: product row
+        ProductDao-->>OrderService: Product
+        OrderService->>OrderService: Check stock, add to running total
+    end
+
+    OrderService->>OrderDao: create(order)
+    OrderDao->>Database: INSERT INTO orders
+    Database-->>OrderDao: generated order id
+    OrderDao-->>OrderService: orderId
+
+    loop for each cart item
+        OrderService->>ProductDao: decrementStock(productId, qty)
+        ProductDao->>Database: UPDATE products SET stock_qty
+        OrderService->>OrderDao: addItem(orderId, productId, qty, price)
+        OrderDao->>Database: INSERT INTO order_items
+    end
+
+    OrderService->>CartDao: clear(buyerId)
+    CartDao->>Database: DELETE FROM cart_items
+
+    OrderService-->>CheckoutServlet: orderId
+    CheckoutServlet-->>Browser: Redirect /orders?placed={orderId}
+    Browser-->>Buyer: "Order #N confirmed. Thank you."
