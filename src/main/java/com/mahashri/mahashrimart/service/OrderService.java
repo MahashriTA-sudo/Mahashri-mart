@@ -62,4 +62,6 @@ public class OrderService {
     public List<Order> history(long buyerId) throws SQLException { return orderDao.findByBuyerId(buyerId); }
 
     public List<Order> listAll() throws SQLException { return orderDao.findAll(); }
+
+    public List<Order> listForSeller(long sellerId) throws SQLException { return orderDao.findBySellerId(sellerId); }
 }
