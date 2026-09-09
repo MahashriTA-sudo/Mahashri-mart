@@ -12,4 +12,5 @@ public interface OrderDao {
             throws SQLException;
     List<Order> findByBuyerId(long buyerId) throws SQLException;
     List<Order> findAll() throws SQLException;
+    List<Order> findBySellerId(long sellerId) throws SQLException;
 }

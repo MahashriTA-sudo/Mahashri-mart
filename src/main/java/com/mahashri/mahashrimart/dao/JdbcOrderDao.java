@@ -81,10 +81,58 @@ public class JdbcOrderDao extends JdbcDao implements OrderDao {
         return orders;
     }
 
+    @Override
+    public List<Order> findBySellerId(long sellerId) throws SQLException {
+        String orderSql = "SELECT DISTINCT o.id, o.buyer_id, o.status, o.total_amount, o.created_at " +
+                "FROM orders o " +
+                "JOIN order_items oi ON oi.order_id = o.id " +
+                "JOIN products p ON p.id = oi.product_id " +
+                "WHERE p.seller_id = ? " +
+                "ORDER BY o.created_at DESC, o.id DESC";
+        String itemSql = "SELECT oi.id, oi.order_id, oi.product_id, p.name AS product_name, oi.quantity, oi.unit_price " +
+                "FROM order_items oi JOIN products p ON p.id = oi.product_id " +
+                "WHERE oi.order_id = ? AND p.seller_id = ? ORDER BY oi.id";
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = connection();
+             PreparedStatement orderStatement = connection.prepareStatement(orderSql)) {
+            orderStatement.setLong(1, sellerId);
+            try (ResultSet result = orderStatement.executeQuery()) {
+                while (result.next()) {
+                    Order order = mapOrder(result);
+                    order.setItems(findItemsForSeller(connection, itemSql, order.getId(), sellerId));
+                    orders.add(order);
+                }
+            }
+        }
+        return orders;
+    }
+
     private static List<OrderItem> findItems(Connection connection, String sql, long orderId) throws SQLException {
         List<OrderItem> items = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, orderId);
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    OrderItem item = new OrderItem();
+                    item.setId(result.getLong("id"));
+                    item.setOrderId(result.getLong("order_id"));
+                    item.setProductId(result.getLong("product_id"));
+                    item.setProductName(result.getString("product_name"));
+                    item.setQuantity(result.getInt("quantity"));
+                    item.setUnitPrice(result.getBigDecimal("unit_price"));
+                    items.add(item);
+                }
+            }
+        }
+        return items;
+    }
+
+    private static List<OrderItem> findItemsForSeller(Connection connection, String sql, long orderId, long sellerId)
+            throws SQLException {
+        List<OrderItem> items = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, orderId);
+            statement.setLong(2, sellerId);
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()) {
                     OrderItem item = new OrderItem();
