@@ -53,7 +53,26 @@ H2 Database
 
 ## Screenshots
 
-_(Add screenshots of the marketplace, cart, checkout, seller dashboard, and admin panel here before final submission.)_
+**Marketplace**
+![Marketplace](docs/screenshots/marketplace.png)
+
+**Product detail**
+![Product detail](docs/screenshots/product-detail.png)
+
+**Cart**
+![Cart](docs/screenshots/cart.png)
+
+**Seller dashboard**
+![Seller listings](docs/screenshots/seller-listings.png)
+
+**Admin dashboard — Orders**
+![Admin dashboard orders](docs/screenshots/admin-dashboard_1.png)
+
+**Admin dashboard — Users**
+![Admin dashboard users](docs/screenshots/admin-dashboard_2.png)
+
+**Admin dashboard — Products**
+![Admin dashboard products](docs/screenshots/admin-dashboard_3.png)
 
 ## Run locally with Docker (recommended)
 
@@ -78,7 +97,7 @@ Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder,
 
 ## Seed accounts
 
-All seed accounts share the same password: **`password`**
+All seed accounts share the same password: **password**
 
 | Role | Name | Email |
 |---|---|---|
