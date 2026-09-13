@@ -23,6 +23,7 @@ MahashriMart is a Java 17 multi-seller marketplace built with Servlets on Tomcat
 - jBCrypt for password hashing
 - JUnit 5 + Mockito for unit tests
 - Docker (for deployment)
+- GitHub Actions (CI — build and test on every push)
 
 ## Architecture
 
@@ -34,7 +35,7 @@ Browser (HTML/CSS/JSP)
 Filter layer -> AuthFilter (session check), EncodingFilter
     |
 Controller layer -> per-resource Servlets (ProductServlet, CheckoutServlet, OrderHistoryServlet,
-                     SellerOrdersServlet, AdminServlet, ReviewServlet, ...)
+                     SellerOrdersServlet, AdminServlet, ReviewServlet, HealthServlet, ...)
     |
 Service layer -> business logic, validation (OrderService, ProductService, UserService, ...)
     |
@@ -95,6 +96,10 @@ mvn clean package
 
 Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at `http://localhost:8080/mahashrimart`.
 
+## Health check
+
+`GET /api/v1/health` returns the application and database status, e.g. `{"status":"UP","db":"UP"}`. This endpoint is publicly accessible (no login required) for uptime monitoring.
+
 ## Seed accounts
 
 All seed accounts share the same password: **password**
@@ -123,3 +128,4 @@ This project is deployed on [Render](https://render.com) using the included `Doc
 ## Known Limitations
 
 - **Data persistence:** The app currently uses H2 in in-memory mode (`jdbc:h2:mem`) rather than a persistent database. This is a deliberate trade-off for this deployment checkpoint: the free hosting tier used does not provide persistent disk storage, and available free-tier alternatives with persistent storage (e.g., Fly.io, Oracle Cloud) require a payment card on file for identity verification even when no charge applies. As a student project, this was avoided in favor of documenting the limitation. As a result, data resets to the seeded demo dataset whenever the app restarts or the free-tier instance spins down after inactivity. A production-grade fix would involve a managed external database with persistent storage, or upgrading to a hosting plan with persistent disk support.
+- **Repository initialization timeline:** Per the project specification, the repository was expected to be initialized by July 27, 2026. Development on this repository actually began on September 5, 2026, meaning commit history does not extend back to the full specified checkpoint window. Since initialization, development has been active and consistent, with 39 commits across the following ~9 days, well exceeding the minimum weekly commit cadence going forward.
