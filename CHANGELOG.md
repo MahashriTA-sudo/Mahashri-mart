@@ -27,3 +27,5 @@ MVP release.
 - Admin panel (view users, orders, manage listings)
 - Reviews and star ratings
 - Unit tests added (ProductService, UserService)
+## v1.1.0 - 2026-09-20
+- feat: AI chatbot with pluggable provider (mock and Gemini), rate limiting, per-session caching, and safe fallback on failure
