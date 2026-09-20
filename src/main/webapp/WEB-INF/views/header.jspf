@@ -126,10 +126,10 @@
             body: 'message=' + encodeURIComponent(text)
         })
         .then(function (r) {
-            if (!r.ok) { throw new Error('bad response'); }
+            
             return r.json();
         })
-        .then(function (data) { addMessage(data.reply, 'bot'); })
+        .then(function (data) { if (data && data.success && data.data) { addMessage(data.data.reply, 'bot'); } else if (data && data.error) { addMessage(data.error.message, 'bot'); } else { addMessage('Sorry, something went wrong. Please try again.', 'bot'); } })
         .catch(function () { addMessage('Sorry, something went wrong. Please try again.', 'bot'); })
         .then(function () { send.disabled = false; input.focus(); });
     }
