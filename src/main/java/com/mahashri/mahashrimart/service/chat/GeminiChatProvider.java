@@ -29,7 +29,8 @@ public class GeminiChatProvider implements ChatProvider {
     private static final String ENDPOINT_TEMPLATE =
             "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent";
 
-    private static final Duration TIMEOUT = Duration.ofSeconds(8);
+    private static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(20);
 
     private static final String SYSTEM_PROMPT =
             "You are the MahashriMart shopping assistant. Answer ONLY questions about " +
@@ -43,7 +44,7 @@ public class GeminiChatProvider implements ChatProvider {
 
     public GeminiChatProvider() {
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(TIMEOUT)
+                .connectTimeout(CONNECT_TIMEOUT)
                 .build();
     }
 
@@ -60,7 +61,7 @@ public class GeminiChatProvider implements ChatProvider {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
-                    .timeout(TIMEOUT)
+                    .timeout(REQUEST_TIMEOUT)
                     .header("Content-Type", "application/json")
                     .header("x-goog-api-key", API_KEY)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
