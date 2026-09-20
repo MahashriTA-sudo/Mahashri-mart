@@ -6,24 +6,26 @@ MahashriMart is a Java 17 multi-seller marketplace built with Servlets on Tomcat
 
 ## Features
 
-- **Authentication** — registration and login for buyers, sellers, and an admin seed account, with bcrypt password hashing and session-based auth
-- **Product browsing** — search by keyword and filter by category (Toys, Home, Wellness, Electronics, Jewels, Groceries, Stationery, School / Office Supplies, Art Supplies)
-- **Cart & checkout** — add/update/remove items, running total, mock payment confirmation
-- **Order history** — buyers can view their past orders; sellers can view incoming orders containing their own products
-- **Seller dashboard** — sellers can create, edit, and delete their own product listings
-- **Admin panel** — view all users, view all orders, and moderate/remove any product listing
-- **Reviews & ratings** — buyers can leave a 1–5 star rating with an optional comment on any product
+- **Authentication** - registration and login for buyers, sellers, and an admin seed account, with bcrypt password hashing and session-based auth
+- **Product browsing** - search by keyword and filter by category (Toys, Home, Wellness, Electronics, Jewels, Groceries, Stationery, School / Office Supplies, Art Supplies)
+- **Cart & checkout** - add/update/remove items, running total, mock payment confirmation
+- **Order history** - buyers can view their past orders; sellers can view incoming orders containing their own products
+- **Seller dashboard** - sellers can create, edit, and delete their own product listings
+- **Admin panel** - view all users, view all orders, and moderate/remove any product listing
+- **Reviews & ratings** - buyers can leave a 1-5 star rating with an optional comment on any product
+- **AI Chatbot** - shopping assistant widget on every page (see below)
 
 ## Tech stack
 
 - Java 17, Maven, Apache Tomcat 9.0.x
-- Java Servlets (`javax.servlet.*`), JSP + JSTL
+- Java Servlets (javax.servlet.*), JSP + JSTL
 - JDBC with H2 (embedded, in-memory)
 - HikariCP connection pooling
 - jBCrypt for password hashing
+- Gson for JSON serialization
 - JUnit 5 + Mockito for unit tests
 - Docker (for deployment)
-- GitHub Actions (CI — build and test on every push)
+- GitHub Actions (CI - build and test on every push)
 
 ## Architecture
 
@@ -35,11 +37,11 @@ Browser (HTML/CSS/JSP)
 Filter layer -> AuthFilter (session check), EncodingFilter
     |
 Controller layer -> per-resource Servlets (ProductServlet, CheckoutServlet, OrderHistoryServlet,
-                     SellerOrdersServlet, AdminServlet, ReviewServlet, HealthServlet, ...)
+                     SellerOrdersServlet, AdminServlet, ReviewServlet, HealthServlet, ChatServlet, ...)
     |
-Service layer -> business logic, validation (OrderService, ProductService, UserService, ...)
+Service layer -> business logic, validation (OrderService, ProductService, UserService, ChatService, ...)
     |
-DAO layer -> ProductDao, OrderDao, CartDao, UserDao, ReviewDao — all SQL, PreparedStatement only
+DAO layer -> ProductDao, OrderDao, CartDao, UserDao, ReviewDao - all SQL, PreparedStatement only
     |
 Connection Pool -> HikariCP (via AppContextListener at startup)
     |
@@ -48,53 +50,40 @@ H2 Database
 
 ## Diagrams
 
-- **ER Diagram** — see `docs/D1-ER-diagram.mermaid`
-- **Use Case Diagram** — see `docs/D2-UseCase-diagram.mermaid`
-- **Sequence Diagram (place-order flow)** — see `docs/D3-Sequence-diagram.mermaid`
+- ER Diagram - see `docs/D1-ER-diagram.mermaid`
+- Use Case Diagram - see `docs/D2-UseCase-diagram.mermaid`
+- Sequence Diagram (place-order flow) - see `docs/D3-Sequence-diagram.mermaid`
 
 ## Screenshots
 
-**Marketplace**
-![Marketplace](docs/screenshots/marketplace.png)
-
-**Product detail**
-![Product detail](docs/screenshots/product-detail.png)
-
-**Cart**
-![Cart](docs/screenshots/cart.png)
-
-**Seller dashboard**
-![Seller listings](docs/screenshots/seller-listings.png)
-
-**Admin dashboard — Orders**
-![Admin dashboard orders](docs/screenshots/admin-dashboard_1.png)
-
-**Admin dashboard — Users**
-![Admin dashboard users](docs/screenshots/admin-dashboard_2.png)
-
-**Admin dashboard — Products**
-![Admin dashboard products](docs/screenshots/admin-dashboard_3.png)
+- Marketplace
+- Product detail
+- Cart
+- Seller dashboard - Seller listings
+- Admin dashboard - Orders
+- Admin dashboard - Users
+- Admin dashboard - Products
 
 ## Run locally with Docker (recommended)
 
 Requires Docker Desktop installed.
 
-```bash
+```
 docker build -t mahashrimart .
 docker run -p 8080:8080 mahashrimart
 ```
 
-The app will be available at `http://localhost:8080/`.
+The app will be available at http://localhost:8080/.
 
 ## Run locally without Docker
 
 Requires JDK 17, Maven, and Apache Tomcat 9.0.x installed separately.
 
-```bash
+```
 mvn clean package
 ```
 
-Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at `http://localhost:8080/mahashrimart`.
+Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder, then start Tomcat. The app will be available at http://localhost:8080/mahashrimart.
 
 ## Health check
 
@@ -102,7 +91,7 @@ Copy the generated `target/mahashrimart.war` into your Tomcat `webapps/` folder,
 
 ## Seed accounts
 
-All seed accounts share the same password: **password**
+All seed accounts share the same password: `password`
 
 | Role | Name | Email |
 |---|---|---|
@@ -123,7 +112,57 @@ All seed accounts share the same password: **password**
 
 ## Deployment
 
-This project is deployed on [Render](https://render.com) using the included `Dockerfile`. Render auto-builds and redeploys on every push to the `main` branch.
+This project is deployed on Render using the included Dockerfile. Render auto-builds and redeploys on every push to the main branch.
+
+## AI Chatbot (v1.1.0)
+
+MahashriMart includes an AI-powered shopping assistant, available via the floating "Chat with us" widget on every page.
+
+### Architecture
+
+```
+Chat widget (JS, floating button + panel)
+  | POST /api/v1/chat
+  v
+ChatServlet (thin, validates request, builds JSON envelope)
+  v
+ChatService (rate limiting, input validation, caching, fallback)
+  v
+ChatProviderFactory (reads AI_CHATBOT_PROVIDER env var: mock | gemini)
+  v
+ChatProvider interface
+  |-- MockChatProvider (rule-based FAQ answers, no external API)
+  `-- GeminiChatProvider (calls Google Gemini API server-side)
+```
+
+### Configuration
+
+| Environment variable | Description | Default |
+|---|---|---|
+| `AI_CHATBOT_PROVIDER` | `mock` or `gemini` | `mock` |
+| `GEMINI_API_KEY` | Gemini API key (server-side only, never in client code) | none |
+| `GEMINI_MODEL` | Gemini model name | `gemini-flash-latest` |
+
+### Guardrails
+
+- Rate limit: 10 messages per minute per session (HTTP 429 with `Retry-After` header)
+- Input length capped at 200 characters
+- Outbound API call timeout: 20 seconds
+- Fixed server-side system prompt restricts scope to MahashriMart products, categories, checkout and orders
+- Repeated identical questions cached per session
+- On any provider failure (timeout, API error, missing key), a static fallback reply is returned with HTTP 200 - the widget never shows a broken error page
+- Product/catalog context passed to the provider so answers are grounded in real MahashriMart data, not invented
+
+### Example FAQ questions the assistant handles
+
+- "what toys do you have"
+- "how many products do you have"
+- "tell me about delivery"
+- "how do I checkout"
+
+### Known limitation
+
+The Gemini free-tier model occasionally returns a temporary 503 "high demand" error; the assistant automatically falls back to a safe static reply in that case rather than showing an error to the user.
 
 ## Known Limitations
 
