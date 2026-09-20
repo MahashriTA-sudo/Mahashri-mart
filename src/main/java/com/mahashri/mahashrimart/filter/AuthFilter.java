@@ -48,6 +48,7 @@ public class AuthFilter implements Filter {
         return path.equals("/") || path.equals("/home") || path.equals("/product")
                 || path.equals("/login") || path.equals("/register") || path.equals("/logout")
                 || path.equals("/api/v1/health")
+                || path.equals("/api/v1/chat")
                 || path.startsWith("/static/");
     }
 }
