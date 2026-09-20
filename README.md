@@ -56,13 +56,23 @@ H2 Database
 
 ## Screenshots
 
-- Marketplace
-- Product detail
-- Cart
-- Seller dashboard - Seller listings
-- Admin dashboard - Orders
-- Admin dashboard - Users
-- Admin dashboard - Products
+### Marketplace
+![Marketplace](docs/screenshots/marketplace.png)
+![Marketplace - more products](docs/screenshots/marketplace_2.png)
+
+### Product detail
+![Product detail](docs/screenshots/product-detail.png)
+
+### Cart
+![Cart](docs/screenshots/cart.png)
+
+### Seller dashboard
+![Seller listings](docs/screenshots/seller-listings.png)
+
+### Admin dashboard
+![Admin dashboard - view 1](docs/screenshots/admin-dashboard_1.png)
+![Admin dashboard - view 2](docs/screenshots/admin-dashboard_2.png)
+![Admin dashboard - view 3](docs/screenshots/admin-dashboard_3.png)
 
 ## Run locally with Docker (recommended)
 
