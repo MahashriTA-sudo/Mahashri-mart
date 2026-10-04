@@ -17,6 +17,10 @@
                class="${activeTab == 'products' ? 'button' : 'button button-outline'}">Products</a>
         </p>
 
+        <c:if test="${not empty success}"><div class="notice notice-success"><c:out value="${success}"/></div></c:if>
+        <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
+
+        <%-- ── USERS TAB ─────────────────────────────────────────────────────── --%>
         <c:if test="${activeTab == 'users'}">
             <table class="listings-table">
                 <thead>
@@ -34,24 +38,55 @@
             </table>
         </c:if>
 
+        <%-- ── ORDERS TAB ────────────────────────────────────────────────────── --%>
         <c:if test="${activeTab == 'orders'}">
+            <%-- Status filter bar --%>
+            <div class="admin-filter-bar">
+                <a href="<c:out value='${pageContext.request.contextPath}'/>/admin/orders"
+                   class="${empty statusFilter ? 'button button-small' : 'button button-small button-outline'}">All</a>
+                <c:forEach var="s" items="${allStatuses}">
+                    <a href="<c:out value='${pageContext.request.contextPath}'/>/admin/orders?status=${s}"
+                       class="${statusFilter == s ? 'button button-small' : 'button button-small button-outline'}"><c:out value="${s}"/></a>
+                </c:forEach>
+            </div>
             <table class="listings-table">
                 <thead>
-                    <tr><th>Order ID</th><th>Buyer ID</th><th>Status</th><th>Total</th></tr>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Buyer ID</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Update status</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="o" items="${allOrders}">
                         <tr>
                             <td><c:out value="${o.id}"/></td>
                             <td><c:out value="${o.buyerId}"/></td>
-                            <td><c:out value="${o.status}"/></td>
+                            <td><span class="status-pill status-pill--${o.status}"><c:out value="${o.status}"/></span></td>
                             <td>&#8377;<c:out value="${o.totalAmount}"/></td>
+                            <td>
+                                <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/admin/orders/update"
+                                      style="display:flex;gap:4px;align-items:center;"
+                                      onsubmit="return confirm('Update order #${o.id} status?');">
+                                    <input type="hidden" name="id" value="<c:out value='${o.id}'/>"/>
+                                    <input type="hidden" name="statusFilter" value="<c:out value='${statusFilter}'/>"/>
+                                    <select name="status" class="select-inline">
+                                        <c:forEach var="s" items="${allStatuses}">
+                                            <option value="${s}" ${o.status == s ? 'selected' : ''}><c:out value="${s}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                    <button type="submit" class="link-button">Apply</button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </c:if>
 
+        <%-- ── PRODUCTS TAB ──────────────────────────────────────────────────── --%>
         <c:if test="${activeTab == 'products'}">
             <table class="listings-table">
                 <thead>

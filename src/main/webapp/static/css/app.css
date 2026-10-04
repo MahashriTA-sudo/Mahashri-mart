@@ -240,3 +240,30 @@ legend { margin-bottom: 10px; }
     .button:hover, .product-card:hover { transform: none; }
     .product-card:hover .product-image { transform: none; }
 }
+
+/* ── Status pills ─────────────────────────────────────────────────────────── */
+.status-pill { padding: 5px 10px; border-radius: 3px; font: 10px 'DM Mono', monospace; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.status-pill--PENDING   { background: #fef3c7; color: #92400e; }
+.status-pill--CONFIRMED { background: #dbeafe; color: #1e40af; }
+.status-pill--SHIPPED   { background: #e0e7ff; color: #3730a3; }
+.status-pill--DELIVERED { background: #d1fae5; color: #065f46; }
+.status-pill--CANCELLED { background: #fee2e2; color: #991b1b; }
+
+/* ── Notice banners (success / error) ────────────────────────────────────── */
+.notice { padding: 12px 18px; border-radius: 4px; font-size: 14px; margin-bottom: 20px; }
+.notice-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.notice-error   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* ── Order actions (cancel / ship / deliver buttons) ─────────────────────── */
+.order-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+.order-actions { padding-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+.button-danger { background: #dc2626; border-color: #dc2626; }
+.button-danger:hover { background: #b91c1c; border-color: #b91c1c; }
+.button-outline { background: transparent; color: var(--green); border-color: var(--line); }
+.button-outline:hover { background: var(--sage); color: var(--green-dark); transform: none; }
+
+/* ── Admin filter bar ────────────────────────────────────────────────────── */
+.admin-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+
+/* ── Inline select for admin order status update ─────────────────────────── */
+.select-inline { padding: 5px 8px; border: 1px solid var(--line); border-radius: 3px; font-size: 12px; background: var(--paper); color: var(--ink); }

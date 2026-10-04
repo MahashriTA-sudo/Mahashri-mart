@@ -11,6 +11,7 @@ public class Order {
     private OrderStatus status;
     private BigDecimal totalAmount;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private List<OrderItem> items = new ArrayList<>();
 
     public long getId() { return id; }
@@ -23,6 +24,8 @@ public class Order {
     public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
     public List<OrderItem> getItems() { return items; }
     public void setItems(List<OrderItem> items) { this.items = items; }
 }

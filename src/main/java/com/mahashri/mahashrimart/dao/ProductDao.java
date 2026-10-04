@@ -14,6 +14,7 @@ public interface ProductDao {
     long create(long sellerId, ProductRequest request) throws SQLException;
     Optional<Product> findByIdForUpdate(Connection connection, long id) throws SQLException;
     boolean decrementStock(Connection connection, long id, int quantity) throws SQLException;
+    boolean incrementStock(Connection connection, long id, int quantity) throws SQLException;
 
     List<Product> findBySellerId(long sellerId) throws SQLException;
     boolean update(long id, ProductRequest request) throws SQLException;

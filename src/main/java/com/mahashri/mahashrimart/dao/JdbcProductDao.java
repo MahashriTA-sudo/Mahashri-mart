@@ -86,6 +86,16 @@ public class JdbcProductDao extends JdbcDao implements ProductDao {
     }
 
     @Override
+    public boolean incrementStock(Connection connection, long id, int quantity) throws SQLException {
+        String sql = "UPDATE products SET stock_qty = stock_qty + ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, quantity);
+            statement.setLong(2, id);
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    @Override
     public List<Product> findBySellerId(long sellerId) throws SQLException {
         String sql = "SELECT p.id, p.seller_id, u.name AS seller_name, p.name, p.description, p.price, " +
                 "p.stock_qty, p.category, p.image_url, p.created_at " +

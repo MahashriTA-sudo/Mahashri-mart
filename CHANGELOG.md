@@ -2,6 +2,19 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.2.0] - 2026-10-04
+Order status management release.
+- **Buyer cancellation** — buyers can cancel PENDING or CONFIRMED orders via `POST /orders/cancel`; stock is restored atomically in a transaction
+- **Seller status advancement** — sellers can mark orders SHIPPED (from CONFIRMED) or DELIVERED (from SHIPPED) via `POST /seller/orders/update`; invalid transitions are rejected with a clear error message
+- **Admin full control** — admins can force-set any order to any status via `POST /admin/orders/update`; force-cancellation also restores stock
+- **Admin status filter** — `GET /admin/orders?status=SHIPPED` (or any status) filters the orders table; "All" resets to unfiltered view
+- **Coloured status badges** — PENDING (amber), CONFIRMED (blue), SHIPPED (indigo), DELIVERED (green), CANCELLED (red) across all order views
+- **Flash messages** — success and error banners on all order pages using redirect-after-POST pattern
+- **Detailed order items** — buyer order history now shows qty × unit price per item, not just product name
+- `updated_at` column added to `orders` table (tracked on every status change)
+- `incrementStock` added to `ProductDao` / `JdbcProductDao` for stock restoration
+
+
 ## [v1.1.0] - 2026-09-20
 AI chatbot release.
 - Shopping assistant chat widget on every page, served by POST /api/v1/chat
