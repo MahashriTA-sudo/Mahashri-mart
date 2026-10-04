@@ -2,6 +2,13 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.3.0] - 2026-10-04
+Seller sales dashboard and order page polish.
+- **Seller sales dashboard (O3)**: the seller's incoming orders page shows total, active, delivered and cancelled order counts, and total revenue (cancelled orders are not counted)
+- **Order status timeline**: the buyer's order history shows Confirmed, Shipped and Delivered progress, or a red notice for cancelled orders
+- **Readable order dates**: dates now show like `4 Oct 2026, 8:17 PM` in Indian time, on both buyer and seller pages
+- `SellerSalesSummary` model class added, with 6 new unit tests (89 tests in total)
+
 ## [v1.2.0] - 2026-10-04
 Order status management release.
 - **Buyer cancellation** — buyers can cancel PENDING or CONFIRMED orders via `POST /orders/cancel`; stock is restored atomically in a transaction

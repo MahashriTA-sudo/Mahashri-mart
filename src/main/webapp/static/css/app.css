@@ -267,3 +267,28 @@ legend { margin-bottom: 10px; }
 
 /* ── Inline select for admin order status update ─────────────────────────── */
 .select-inline { padding: 5px 8px; border: 1px solid var(--line); border-radius: 3px; font-size: 12px; background: var(--paper); color: var(--ink); }
+
+/* ── Order status timeline (NEW) ─────────────────────────────────────────── */
+.timeline { display: flex; list-style: none; margin: 18px 0; padding: 0; }
+.timeline-step { flex: 1; text-align: center; position: relative; font-size: 12.5px; color: var(--muted); }
+.timeline-step::before { content: ""; position: absolute; top: 9px; left: -50%; width: 100%; height: 3px; background: var(--line); }
+.timeline-step:first-child::before { display: none; }
+.timeline-dot { display: block; width: 20px; height: 20px; border-radius: 50%; background: var(--line); margin: 0 auto 6px; position: relative; z-index: 1; }
+.timeline-step.is-done { color: var(--green); font-weight: 600; }
+.timeline-step.is-done .timeline-dot { background: var(--green); }
+.timeline-step.is-done::before { background: var(--green); }
+.timeline-cancelled { margin: 18px 0; padding: 10px 14px; border-radius: var(--radius); background: #fee2e2; color: #991b1b; font-weight: 600; font-size: 13.5px; }
+/* Seller sales summary (O3) */
+.sales-summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 26px; }
+.sales-box { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 16px 18px; }
+.sales-box span { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.sales-box strong { font: 600 26px var(--font-heading); font-variant-numeric: tabular-nums; }
+.sales-box--revenue { background: var(--green); border-color: var(--green); }
+.sales-box--revenue span, .sales-box--revenue strong { color: var(--paper); }
+@media (max-width: 900px) { .sales-summary { grid-template-columns: repeat(2, 1fr); } }
+
+/* Cart and checkout: stack the two columns on medium screens so nothing is cut off */
+.cart-items { min-width: 0; }
+@media (max-width: 1000px) {
+    .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
+}

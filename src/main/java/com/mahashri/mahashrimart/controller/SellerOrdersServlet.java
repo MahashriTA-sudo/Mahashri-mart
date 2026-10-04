@@ -1,7 +1,9 @@
 package com.mahashri.mahashrimart.controller;
 
 import com.mahashri.mahashrimart.exception.ValidationException;
+import com.mahashri.mahashrimart.model.Order;
 import com.mahashri.mahashrimart.model.OrderStatus;
+import com.mahashri.mahashrimart.model.SellerSalesSummary;
 import com.mahashri.mahashrimart.util.ServletUtil;
 
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet({"/seller/orders", "/seller/orders/update"})
 public class SellerOrdersServlet extends ServletUtil {
@@ -17,7 +20,9 @@ public class SellerOrdersServlet extends ServletUtil {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("orders", services(request).orders().listForSeller(currentUser(request).getId()));
+            List<Order> orders = services(request).orders().listForSeller(currentUser(request).getId());
+            request.setAttribute("orders", orders);
+            request.setAttribute("summary", SellerSalesSummary.from(orders));
             if (request.getParameter("updated") != null) {
                 request.setAttribute("success", "Order #" + request.getParameter("updated") + " status updated.");
             }

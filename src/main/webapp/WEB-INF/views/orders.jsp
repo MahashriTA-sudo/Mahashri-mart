@@ -26,10 +26,28 @@
                         <div class="order-header">
                             <div>
                                 <span class="eyebrow">ORDER #<c:out value="${order.id}"/></span>
-                                <h2><c:out value="${order.createdAt}"/></h2>
+                                <h2><c:out value="${order.createdAtDisplay}"/></h2>
                             </div>
                             <span class="status-pill status-pill--${order.status}"><c:out value="${order.status}"/></span>
                         </div>
+                        <c:choose>
+                            <c:when test="${order.status == 'CANCELLED'}">
+                                <div class="timeline-cancelled">This order was cancelled.</div>
+                            </c:when>
+                            <c:otherwise>
+                                <ol class="timeline">
+                                    <li class="timeline-step ${order.progressStep >= 1 ? 'is-done' : ''}">
+                                        <span class="timeline-dot"></span>Confirmed
+                                    </li>
+                                    <li class="timeline-step ${order.progressStep >= 2 ? 'is-done' : ''}">
+                                        <span class="timeline-dot"></span>Shipped
+                                    </li>
+                                    <li class="timeline-step ${order.progressStep >= 3 ? 'is-done' : ''}">
+                                        <span class="timeline-dot"></span>Delivered
+                                    </li>
+                                </ol>
+                            </c:otherwise>
+                        </c:choose>
                         <div class="order-items">
                             <c:forEach var="item" items="${order.items}">
                                 <div class="order-item">

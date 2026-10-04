@@ -10,6 +10,30 @@
     </div>
     <c:if test="${not empty success}"><div class="notice notice-success"><c:out value="${success}"/></div></c:if>
     <c:if test="${not empty error}"><div class="notice notice-error"><c:out value="${error}"/></div></c:if>
+
+    <div class="sales-summary">
+        <div class="sales-box">
+            <span>Total orders</span>
+            <strong><c:out value="${summary.totalOrders}"/></strong>
+        </div>
+        <div class="sales-box">
+            <span>Active</span>
+            <strong><c:out value="${summary.activeOrders}"/></strong>
+        </div>
+        <div class="sales-box">
+            <span>Delivered</span>
+            <strong><c:out value="${summary.deliveredOrders}"/></strong>
+        </div>
+        <div class="sales-box">
+            <span>Cancelled</span>
+            <strong><c:out value="${summary.cancelledOrders}"/></strong>
+        </div>
+        <div class="sales-box sales-box--revenue">
+            <span>Total revenue</span>
+            <strong>&#8377;<c:out value="${summary.totalRevenue}"/></strong>
+        </div>
+    </div>
+
     <c:choose>
         <c:when test="${empty orders}">
             <div class="empty-state">
@@ -25,7 +49,7 @@
                         <div class="order-header">
                             <div>
                                 <span class="eyebrow">ORDER #<c:out value="${order.id}"/></span>
-                                <h2><c:out value="${order.createdAt}"/></h2>
+                                <h2><c:out value="${order.createdAtDisplay}"/></h2>
                             </div>
                             <span class="status-pill status-pill--${order.status}"><c:out value="${order.status}"/></span>
                         </div>
