@@ -10,6 +10,7 @@ public class ApplicationServices {
     private final CartService cartService;
     private final OrderService orderService;
     private final ReviewService reviewService;
+    private final WishlistService wishlistService;
 
     public ApplicationServices(DataSource dataSource) {
         UserDao userDao = new JdbcUserDao(dataSource);
@@ -22,6 +23,7 @@ public class ApplicationServices {
         cartService = new CartService(cartDao, productDao);
         orderService = new OrderService(dataSource, cartDao, productDao, orderDao);
         reviewService = new ReviewService(reviewDao);
+        wishlistService = new WishlistService(new JdbcWishlistDao(dataSource), productDao);
     }
 
     public UserService users() { return userService; }
@@ -29,4 +31,5 @@ public class ApplicationServices {
     public CartService cart() { return cartService; }
     public OrderService orders() { return orderService; }
     public ReviewService reviews() { return reviewService; }
+    public WishlistService wishlist() { return wishlistService; }
 }

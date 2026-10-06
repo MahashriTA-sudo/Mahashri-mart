@@ -18,6 +18,7 @@
         <nav class="nav-links" aria-label="Main navigation">
             <a href="<c:out value='${pageContext.request.contextPath}'/>/">Marketplace</a>
             <c:if test="${not empty sessionScope.user and sessionScope.user.role == 'BUYER'}">
+                <a href="<c:out value='${pageContext.request.contextPath}'/>/wishlist">Wishlist</a>
                 <a href="<c:out value='${pageContext.request.contextPath}'/>/orders">Orders</a>
                 <a class="cart-link" href="<c:out value='${pageContext.request.contextPath}'/>/cart">Cart</a>
             </c:if>

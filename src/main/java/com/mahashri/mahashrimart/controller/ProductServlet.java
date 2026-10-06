@@ -1,6 +1,8 @@
 package com.mahashri.mahashrimart.controller;
 
 import com.mahashri.mahashrimart.model.Product;
+import com.mahashri.mahashrimart.model.Role;
+import com.mahashri.mahashrimart.model.User;
 import com.mahashri.mahashrimart.util.ServletUtil;
 
 import javax.servlet.ServletException;
@@ -24,6 +26,16 @@ public class ProductServlet extends ServletUtil {
             request.setAttribute("product", product);
             request.setAttribute("reviews", services(request).reviews().forProduct(id));
             request.setAttribute("averageRating", services(request).reviews().averageRating(id));
+            User user = currentUser(request);
+            if (user != null && user.getRole() == Role.BUYER) {
+                request.setAttribute("inWishlist", services(request).wishlist().contains(user.getId(), id));
+            }
+            if ("1".equals(request.getParameter("wished"))) {
+                request.setAttribute("success", "Added to your wishlist.");
+            }
+            if ("1".equals(request.getParameter("unwished"))) {
+                request.setAttribute("success", "Removed from your wishlist.");
+            }
             if ("1".equals(request.getParameter("created"))) {
                 request.setAttribute("success", "Your listing is live.");
             }

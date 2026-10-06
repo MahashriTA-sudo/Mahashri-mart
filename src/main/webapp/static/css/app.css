@@ -292,3 +292,13 @@ legend { margin-bottom: 10px; }
 @media (max-width: 1000px) {
     .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
 }
+
+/* Wishlist */
+.wish-form { margin-top: 14px; }
+.wish-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: transparent; border: 1px solid var(--line); border-radius: var(--radius); color: var(--green); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.wish-button:hover { border-color: var(--clay); color: var(--clay); }
+.wish-heart { font-size: 18px; line-height: 1; }
+.wish-active { border-color: var(--clay); color: var(--clay); }
+.wishlist-item .cart-item-info > span { display: block; }
+.wishlist-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.out-of-stock { color: var(--clay); font-size: 12px; font-weight: 600; }
