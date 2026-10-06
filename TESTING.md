@@ -5,7 +5,7 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 
 ## 1. Automated tests
 1. Run `mvn clean verify`.
-2. Expected result: `Tests run: 83, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
+2. Expected result: `Tests run: 89, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
 
 ## 2. Buyer flow
 1. Log in as `buyer1@mahashri.com`.
@@ -37,5 +37,22 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 1. Open /orders while logged out. Expected: redirect to login.
 2. Log in as a buyer and open /admin/orders. Expected: access denied.
 
+## Test Results Table
+
+Environment: local run at http://localhost:8080 (in-memory database), version v1.3.0.
+
+| ID | What I test | Expected result | Actual result | Pass/Fail |
+|----|-------------|-----------------|---------------|-----------|
+| T1 | Admin changes an order status to SHIPPED | Status changes, flash message shows | Order #1 changed to SHIPPED, message "Order #1 status updated." shown | Pass |
+| T2 | Admin filters orders (`/admin/orders?status=SHIPPED`) | Only SHIPPED orders are listed | SHIPPED filter showed Order #1 while SHIPPED, then an empty list after it became DELIVERED. DELIVERED filter showed Order #1 | Pass |
+| T3 | Admin cancels an order | Status becomes CANCELLED and stock goes back up | Order #2 cancelled by admin, message shown, Color Pencils Set stock went 349 to 350 | Pass |
+| T4 | Seller moves order CONFIRMED to SHIPPED | Status becomes SHIPPED | Seller8 clicked "Mark as Shipped" on Order #3, status became SHIPPED | Pass |
+| T5 | Seller moves order SHIPPED to DELIVERED | Status becomes DELIVERED, timeline all green | Seller8 marked Order #3 as Delivered, badge showed DELIVERED | Pass |
+| T6 | Buyer cancels a CONFIRMED order | Status becomes CANCELLED, stock goes back up | Buyer1 cancelled Order #5, message "cancelled and stock restored" shown, Acrylic Paints Set stock went 249 to 250 | Pass |
+| T7 | Buyer tries to cancel a DELIVERED order | Cancel button is not shown | Order #1 (DELIVERED) showed all three green dots and no Cancel button | Pass |
+| T8 | Seller sales dashboard after the flow | Boxes show correct counts and revenue | Total 4, Active 0, Delivered 2, Cancelled 2, Revenue Rs 348.00 (cancelled orders not counted) | Pass |
+| T9 | Register, browse, order, review (end to end) | Every step works without errors | Registered a new buyer, logged in, browsed Pencil Pouch (805 available), ordered it (Order #6), submitted a review (3 stars, "good") | Pass |
+| T10 | Open /orders while logged out | Redirect to login | Logged out, opened /orders, redirected to the Login page | Pass |
+
 ## Result
-Date tested: ____   Tested by: ____   All checks passed: Yes / No
+Date tested: 6 Oct 2026   Tested by: Mahashri T A   All checks passed: Yes (10 of 10 on local run)
