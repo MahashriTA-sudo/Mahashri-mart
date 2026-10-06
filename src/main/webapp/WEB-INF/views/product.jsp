@@ -34,6 +34,14 @@
                             <button class="button" type="submit">Add to cart <span>&#8594;</span></button>
                         </div>
                     </form>
+                    <form class="wish-form" method="post" action="<c:out value='${pageContext.request.contextPath}'/>/wishlist/${inWishlist ? 'remove' : 'add'}">
+                        <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
+                        <input type="hidden" name="from" value="product">
+                        <button class="wish-button ${inWishlist ? 'wish-active' : ''}" type="submit">
+                            <span class="wish-heart">${inWishlist ? '&#9829;' : '&#9825;'}</span>
+                            ${inWishlist ? 'Saved to wishlist (remove)' : 'Add to wishlist'}
+                        </button>
+                    </form>
                 </c:when>
                 <c:when test="${empty sessionScope.user}">
                     <a class="button" href="<c:out value='${pageContext.request.contextPath}'/>/login">Log in to purchase <span>&#8594;</span></a>

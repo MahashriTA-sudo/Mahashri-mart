@@ -2,6 +2,14 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.4.0] - 2026-10-06
+Wishlist release.
+- **Wishlist / save-for-later (O1)**: logged-in buyers can add a product to their wishlist from the product page, view the Wishlist page from the header, and remove items
+- Wishlist is private: logged-out visitors are redirected to the Login page
+- Same product cannot be saved twice by the same user
+- `wishlist_items` table added with migration `V4__add_wishlist.sql` (also added to `schema.sql`)
+- `WishlistDao`, `WishlistService`, `WishlistServlet` and `WishlistItem` added, with 12 new tests (101 tests in total)
+
 ## [v1.3.0] - 2026-10-04
 Seller sales dashboard and order page polish.
 - **Seller sales dashboard (O3)**: the seller's incoming orders page shows total, active, delivered and cancelled order counts, and total revenue (cancelled orders are not counted)
@@ -20,7 +28,6 @@ Order status management release.
 - **Detailed order items** — buyer order history now shows qty × unit price per item, not just product name
 - `updated_at` column added to `orders` table (tracked on every status change)
 - `incrementStock` added to `ProductDao` / `JdbcProductDao` for stock restoration
-
 
 ## [v1.1.0] - 2026-09-20
 AI chatbot release.
