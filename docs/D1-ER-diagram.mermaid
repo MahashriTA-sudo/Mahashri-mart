@@ -3,9 +3,11 @@ erDiagram
     USERS ||--o{ ORDERS : "places"
     USERS ||--o{ CART_ITEMS : "has"
     USERS ||--o{ REVIEWS : "writes"
+    USERS ||--o{ WISHLIST_ITEMS : "saves"
     PRODUCTS ||--o{ ORDER_ITEMS : "included in"
     PRODUCTS ||--o{ CART_ITEMS : "added as"
     PRODUCTS ||--o{ REVIEWS : "receives"
+    PRODUCTS ||--o{ WISHLIST_ITEMS : "saved as"
     ORDERS ||--o{ ORDER_ITEMS : "contains"
 
     USERS {
@@ -58,5 +60,12 @@ erDiagram
         long user_id FK
         int rating
         string comment
+        timestamp created_at
+    }
+
+    WISHLIST_ITEMS {
+        long id PK
+        long user_id FK "UNIQUE with product_id"
+        long product_id FK "UNIQUE with user_id"
         timestamp created_at
     }
