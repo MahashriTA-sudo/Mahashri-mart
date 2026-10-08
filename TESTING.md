@@ -5,7 +5,7 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 
 ## 1. Automated tests
 1. Run `mvn clean verify`.
-2. Expected result: `Tests run: 101, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
+2. Expected result: `Tests run: 102, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
 
 ## 2. Buyer flow
 1. Log in as `buyer1@mahashri.com`.
@@ -28,6 +28,7 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 2. Open the admin dashboard and the orders list.
 3. Filter orders by status (for example SHIPPED).
 4. Change an order's status. Expected: cancelling an order restores the stock.
+5. Try to cancel a DELIVERED order. Expected: refused with "A DELIVERED order cannot be cancelled."
 
 ## 5. Chatbot
 1. Click "Chat with us".
@@ -62,7 +63,7 @@ Environment: local run at http://localhost:8080 (in-memory database), version v1
 
 ## Test Results Table - Live site
 
-Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0. (Render restarts reset the in-memory data, so order numbers start again from #1.)
+Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0 (T17 tested after the PR #5 bug fix). (Render restarts reset the in-memory data, so order numbers start again from #1.)
 
 | ID | What I test | Expected result | Actual result | Pass/Fail |
 |----|-------------|-----------------|---------------|-----------|
@@ -72,7 +73,8 @@ Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0. (
 | T14 | Wishlist: add and remove a product | Product appears on the Wishlist page, then disappears after Remove | Wax Crayons Pack appeared on the Wishlist page, and disappeared after Remove | Pass |
 | T15 | Open /wishlist while logged out | Redirect to login | Logged out, opened /wishlist, redirected to the Login page | Pass |
 | T16 | Register, browse, order, review (end to end) | Every step works without errors | Registered a new buyer, logged in, browsed Magazine File Holder (500 available), ordered it (Order #2), submitted a review (4 stars, "good") | Pass |
+| T17 | Admin tries to cancel a DELIVERED order (bug fix, PR #5) | Cancel is refused and the order stays DELIVERED | Admin set Order #1 (DELIVERED) to CANCELLED, message "A DELIVERED order cannot be cancelled." shown and status stayed DELIVERED | Pass |
 
 ## Result
-Local run: 10 of 10 passed (6 Oct 2026). Live site: 6 of 6 passed (7 Oct 2026).
+Local run: 10 of 10 passed (6 Oct 2026). Live site: 7 of 7 passed (T11 to T16 on 7 Oct 2026, T17 on 8 Oct 2026).
 Tested by: Mahashri T A   All checks passed: Yes
