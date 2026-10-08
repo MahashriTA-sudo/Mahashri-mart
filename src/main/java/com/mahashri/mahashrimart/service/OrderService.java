@@ -87,7 +87,7 @@ public class OrderService {
 
     /**
      * Seller advances an order they have a product in.
-     * Allowed transitions: CONFIRMED to SHIPPED to DELIVERED.
+     * Allowed transitions: CONFIRMED → SHIPPED → DELIVERED.
      */
     public void advanceOrderStatus(long orderId, long sellerId, OrderStatus newStatus) throws Exception {
         TransactionManager.inTransaction(dataSource, connection -> {
@@ -116,8 +116,7 @@ public class OrderService {
     }
 
     /**
-     * Admin can change an order status.
-     * A DELIVERED order can no longer be cancelled.
+     * Admin can set any order to any status.
      * If forcing a cancellation, stock is restored.
      */
     public void adminUpdateStatus(long orderId, OrderStatus newStatus) throws Exception {
@@ -125,9 +124,6 @@ public class OrderService {
             Optional<Order> opt = orderDao.findById(orderId);
             if (opt.isEmpty()) throw new ValidationException("Order not found.");
             Order order = opt.get();
-            if (order.getStatus() == OrderStatus.DELIVERED && newStatus == OrderStatus.CANCELLED) {
-                throw new ValidationException("A DELIVERED order cannot be cancelled.");
-            }
             if (newStatus == OrderStatus.CANCELLED && order.getStatus() != OrderStatus.CANCELLED) {
                 // restore stock on admin cancellation
                 for (OrderItem item : order.getItems()) {
