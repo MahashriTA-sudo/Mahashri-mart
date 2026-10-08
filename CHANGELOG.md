@@ -2,6 +2,12 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.4.1] - 2026-10-08
+Bug fix release.
+- **Fix**: an admin could cancel a DELIVERED order. This is now blocked with the message "A DELIVERED order cannot be cancelled."
+- Unit test `adminCannotCancelADeliveredOrder` added (102 tests in total)
+- Live-site test T17 added to `TESTING.md`
+
 ## [v1.4.0] - 2026-10-06
 Wishlist release.
 - **Wishlist / save-for-later (O1)**: logged-in buyers can add a product to their wishlist from the product page, view the Wishlist page from the header, and remove items
