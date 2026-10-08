@@ -30,13 +30,20 @@ public class WishlistServlet extends ServletUtil {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long productId = longParameter(request, "productId");
         long userId = currentUser(request).getId();
+        boolean fromHome = "home".equals(request.getParameter("from"));
         try {
             if ("/wishlist/add".equals(request.getServletPath())) {
                 services(request).wishlist().add(userId, productId);
-                redirect(request, response, "/product?id=" + productId + "&wished=1");
+                if (fromHome) {
+                    redirect(request, response, "/#marketplace");
+                } else {
+                    redirect(request, response, "/product?id=" + productId + "&wished=1");
+                }
             } else if ("/wishlist/remove".equals(request.getServletPath())) {
                 services(request).wishlist().remove(userId, productId);
-                if ("product".equals(request.getParameter("from"))) {
+                if (fromHome) {
+                    redirect(request, response, "/#marketplace");
+                } else if ("product".equals(request.getParameter("from"))) {
                     redirect(request, response, "/product?id=" + productId + "&unwished=1");
                 } else {
                     redirect(request, response, "/wishlist?removed=1");
