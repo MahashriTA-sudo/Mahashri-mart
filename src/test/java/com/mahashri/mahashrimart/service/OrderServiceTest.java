@@ -276,6 +276,18 @@ class OrderServiceTest {
     }
 
     @Test
+    void adminCannotCancelADeliveredOrder() throws Exception {
+        when(orderDao.findById(ORDER_ID))
+                .thenReturn(Optional.of(order(ORDER_ID, BUYER_ID, OrderStatus.DELIVERED, PRODUCT_ID, 3)));
+
+        assertThrows(ValidationException.class,
+                () -> orderService.adminUpdateStatus(ORDER_ID, OrderStatus.CANCELLED));
+
+        verify(productDao, never()).incrementStock(any(), anyLong(), anyInt());
+        verify(orderDao, never()).updateStatus(any(), anyLong(), any());
+    }
+
+    @Test
     void adminCancellingAnAlreadyCancelledOrderDoesNotRestoreStockTwice() throws Exception {
         when(orderDao.findById(ORDER_ID))
                 .thenReturn(Optional.of(order(ORDER_ID, BUYER_ID, OrderStatus.CANCELLED, PRODUCT_ID, 3)));
