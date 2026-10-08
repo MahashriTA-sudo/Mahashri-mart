@@ -33,6 +33,9 @@
                             <input id="quantity" name="quantity" type="number" min="1" max="<c:out value='${product.stockQty}'/>" value="1">
                             <button class="button" type="submit">Add to cart <span>&#8594;</span></button>
                         </div>
+                        <div class="buy-row">
+                            <button class="button button-outline button-full" type="submit" name="next" value="checkout">Buy now</button>
+                        </div>
                     </form>
                     <form class="wish-form" method="post" action="<c:out value='${pageContext.request.contextPath}'/>/wishlist/${inWishlist ? 'remove' : 'add'}">
                         <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
@@ -51,39 +54,51 @@
     </div>
 
     <div class="reviews-section">
-        <h2>Reviews</h2>
+        <div class="reviews-head">
+            <h2>Customer reviews</h2>
+            <c:if test="${averageRating > 0}">
+                <div class="reviews-score">
+                    <strong><fmt:formatNumber value="${averageRating}" maxFractionDigits="1"/></strong>
+                    <span>&#9733; out of 5 &middot; <c:out value="${reviews.size()}"/> review<c:if test="${reviews.size() != 1}">s</c:if></span>
+                </div>
+            </c:if>
+        </div>
         <c:choose>
             <c:when test="${empty reviews}">
-                <p>No reviews yet. Be the first to share your thoughts.</p>
+                <p class="reviews-empty">No reviews yet. Be the first to share your thoughts.</p>
             </c:when>
             <c:otherwise>
-                <c:forEach var="r" items="${reviews}">
-                    <div class="review-item">
-                        <p class="review-stars">
-                            <c:forEach begin="1" end="5" var="i">
-                                <c:choose>
-                                    <c:when test="${i <= r.rating}">&#9733;</c:when>
-                                    <c:otherwise>&#9734;</c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <strong>&nbsp;<c:out value="${r.userName}"/></strong>
-                        </p>
-                        <c:if test="${not empty r.comment}"><p><c:out value="${r.comment}"/></p></c:if>
-                    </div>
-                </c:forEach>
+                <div class="review-grid">
+                    <c:forEach var="r" items="${reviews}">
+                        <div class="review-card">
+                            <p class="review-stars">
+                                <c:forEach begin="1" end="5" var="i">
+                                    <c:choose>
+                                        <c:when test="${i <= r.rating}">&#9733;</c:when>
+                                        <c:otherwise><span class="star-off">&#9733;</span></c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </p>
+                            <c:if test="${not empty r.comment}"><p class="review-text"><c:out value="${r.comment}"/></p></c:if>
+                            <p class="review-author">&mdash; <c:out value="${r.userName}"/></p>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:otherwise>
         </c:choose>
 
         <c:if test="${sessionScope.user.role == 'BUYER'}">
-            <h3>Write a review</h3>
-            <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/reviews/new" class="form-stack">
-                <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
-                <label for="rating">Rating (1-5)</label>
-                <input id="rating" name="rating" type="number" min="1" max="5" required>
-                <label for="comment">Comment <span class="label-hint">optional</span></label>
-                <textarea id="comment" name="comment" rows="3" placeholder="Share your experience"></textarea>
-                <button class="button" type="submit">Submit review <span>&#8594;</span></button>
-            </form>
+            <div class="review-form-card">
+                <h3>Write a review</h3>
+                <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/reviews/new" class="form-stack">
+                    <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
+                    <label for="rating">Rating (1-5)</label>
+                    <input id="rating" name="rating" type="number" min="1" max="5" required>
+                    <label for="comment">Comment <span class="label-hint">optional</span></label>
+                    <textarea id="comment" name="comment" rows="3" placeholder="Share your experience"></textarea>
+                    <button class="button" type="submit">Submit review <span>&#8594;</span></button>
+                </form>
+            </div>
         </c:if>
     </div>
 </div>

@@ -30,6 +30,9 @@
         </div>
         <span class="result-count"><c:out value="${products.size()}"/> finds</span>
     </div>
+    <c:if test="${param.added == '1'}">
+        <div class="notice notice-success">Added to your cart. <a class="text-link" href="<c:out value='${pageContext.request.contextPath}'/>/cart">View cart</a></div>
+    </c:if>
     <form method="get" action="<c:out value='${pageContext.request.contextPath}'/>/#marketplace" class="add-row" style="margin-bottom: 24px;">
         <input type="text" name="q" placeholder="Search products..." value="<c:out value='${q}'/>" style="flex: 1;">
         <select name="category" style="width: 180px;">
@@ -64,10 +67,53 @@
                         <div class="product-info">
                             <div class="product-meta">
                                 <h3><a href="<c:out value='${pageContext.request.contextPath}'/>/product?id=<c:out value='${product.id}'/>"><c:out value="${product.name}"/></a></h3>
+                                <c:if test="${sessionScope.user.role == 'BUYER'}">
+                                    <c:set var="isWished" value="${wishedIds.contains(product.id)}"/>
+                                    <form class="card-wish" method="post" action="<c:out value='${pageContext.request.contextPath}'/>/wishlist/${isWished ? 'remove' : 'add'}">
+                                        <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
+                                        <input type="hidden" name="from" value="home">
+                                        <button class="wish-button wish-icon ${isWished ? 'wish-active' : ''}" type="submit" title="${isWished ? 'Remove from wishlist' : 'Add to wishlist'}" aria-label="${isWished ? 'Remove from wishlist' : 'Add to wishlist'}">
+                                            <span class="wish-heart">${isWished ? '&#9829;' : '&#9825;'}</span>
+                                        </button>
+                                    </form>
+                                </c:if>
                                 <strong>&#8377;<fmt:formatNumber value="${product.price}" minFractionDigits="2"/></strong>
                             </div>
                             <p><c:out value="${product.description}"/></p>
                             <span class="seller-line">by <c:out value="${product.sellerName}"/></span>
+                            <c:choose>
+                                <c:when test="${product.stockQty > 0}">
+                                    <div class="card-stock"><span class="stock-dot"></span> <c:out value="${product.stockQty}"/> available</div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="card-stock card-stock--out">Out of stock</div>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${sessionScope.user.role == 'BUYER'}">
+                                    <c:if test="${product.stockQty > 0}">
+                                        <div class="card-actions">
+                                            <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/cart/add">
+                                                <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="next" value="home">
+                                                <button class="button button-small button-outline" type="submit">Add to cart</button>
+                                            </form>
+                                            <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/cart/add">
+                                                <input type="hidden" name="productId" value="<c:out value='${product.id}'/>">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="next" value="checkout">
+                                                <button class="button button-small" type="submit">Buy</button>
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                </c:when>
+                                <c:when test="${empty sessionScope.user}">
+                                    <div class="card-actions">
+                                        <a class="button button-small" href="<c:out value='${pageContext.request.contextPath}'/>/login">Log in to purchase</a>
+                                    </div>
+                                </c:when>
+                            </c:choose>
                         </div>
                     </article>
                 </c:forEach>

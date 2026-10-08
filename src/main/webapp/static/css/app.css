@@ -302,3 +302,81 @@ legend { margin-bottom: 10px; }
 .wishlist-item .cart-item-info > span { display: block; }
 .wishlist-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 .out-of-stock { color: var(--clay); font-size: 12px; font-weight: 600; }
+
+/* ── Home page quick actions ─────────────────────────────────────────────── */
+.card-stock { display: flex; align-items: center; color: var(--muted); font: 500 12px var(--font-body); margin: 10px 0 12px; }
+.card-stock--out { color: var(--clay); font-weight: 600; }
+.card-actions { display: flex; gap: 8px; margin-bottom: 10px; }
+.card-actions form { flex: 1; }
+.card-actions .button { width: 100%; }
+.card-wish { margin: 0; }
+.card-wish .wish-button { width: 100%; justify-content: center; padding: 8px 12px; font-size: 12.5px; }
+.card-wish .wish-heart { font-size: 16px; }
+
+/* ── Product page: Buy now button ────────────────────────────────────────── */
+.buy-row { margin-top: 10px; }
+
+/* ── Product page: reviews ───────────────────────────────────────────────── */
+.reviews-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.reviews-head h2 { margin: 0; }
+.reviews-score { display: flex; align-items: baseline; gap: 10px; }
+.reviews-score strong { font: 600 38px var(--font-heading); color: var(--green); }
+.reviews-score span { color: var(--muted); font-size: 13px; }
+.reviews-empty { color: var(--muted); background: var(--paper); border: 1px dashed var(--line); border-radius: var(--radius-lg); padding: 22px; }
+.review-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.review-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 20px 22px; }
+.review-card .review-stars { font-size: 17px; letter-spacing: 2px; margin: 0 0 10px; }
+.star-off { color: var(--line); }
+.review-text { color: var(--ink); font-size: 14.5px; line-height: 1.65; margin: 0 0 12px; }
+.review-author { color: var(--muted); font: 600 12.5px var(--font-body); margin: 0; }
+.review-form-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px; margin-top: 30px; max-width: 560px; }
+.review-form-card h3 { margin-top: 0; }
+
+@media (max-width: 650px) {
+    .review-grid { grid-template-columns: 1fr; }
+    .card-actions { flex-direction: column; }
+}
+
+/* Home card: heart-only wishlist button */
+.card-wish .wish-icon { padding: 6px 12px; }
+.card-wish .wish-icon .wish-heart { font-size: 22px; }
+
+/* Home card: small heart beside the product name */
+.product-meta { align-items: center; gap: 8px; }
+.product-meta h3 { flex: 1; min-width: 0; }
+.product-meta .card-wish { margin: 0; width: auto; flex: 0 0 auto; }
+.product-meta .card-wish .wish-icon {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ---- Login page: show/hide password + demo accounts ---- */
+.password-wrap { position: relative; }
+.password-wrap input { width: 100%; box-sizing: border-box; padding-right: 72px; }
+.password-toggle {
+    position: absolute; top: 50%; right: 8px; transform: translateY(-50%);
+    border: 0; background: transparent; color: #2f5a45;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    padding: 6px 10px; border-radius: 6px;
+}
+.password-toggle:hover { background: rgba(47, 90, 69, 0.1); }
+.demo-box {
+    margin-top: 20px; padding: 14px 16px;
+    border: 1px dashed #b9c9bd; border-radius: 10px; background: #f4f7f2;
+    font-size: 0.88rem;
+}
+.demo-title { margin: 0 0 8px; font-weight: 700; color: #2f5a45; }
+.demo-list { list-style: none; margin: 0 0 8px; padding: 0; }
+.demo-list li { padding: 3px 0; }
+.demo-list li span {
+    display: inline-block; min-width: 56px; margin-right: 6px;
+    font-weight: 600; color: #5b6b60;
+}
+.demo-note { margin: 0; color: #5b6b60; }
