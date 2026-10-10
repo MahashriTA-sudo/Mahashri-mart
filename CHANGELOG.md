@@ -2,6 +2,17 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.5.1] - 2026-10-10
+Maintenance release: static code analysis.
+- **Checkstyle and SpotBugs** added to the Maven build (phase `verify`). The build now fails on any Checkstyle warning or SpotBugs finding, so GitHub Actions CI runs both tools on every push
+- Rule files added in `config/`: `checkstyle.xml` and `spotbugs-exclude.xml` (false alarms are hidden and the reasons are written in the files)
+- **Fix**: `User` is now `Serializable`, because it is stored in the `HttpSession`
+- **Fix**: `AdminServlet` had two identical branches in `updateOrderStatus`; the duplicate was removed
+- **Fix**: `AdminServlet.removeProduct` had an empty `catch` block; the error is now written to the log
+- Unused imports removed from `CartServlet` and `TransactionManager`
+- Result: Checkstyle 0 violations, SpotBugs 0 findings (before the fixes: 120 Checkstyle warnings and 29 SpotBugs findings)
+- No database changes. 102 tests in total, all passing
+
 ## [v1.5.0] - 2026-10-10
 Home page quick actions and login page polish.
 - **Home page quick actions**: each product card now shows stock ("X available" or "Out of stock"), and logged-in buyers get **Add to cart** and **Buy** buttons without opening the product page
