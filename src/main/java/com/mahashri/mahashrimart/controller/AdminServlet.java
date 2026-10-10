@@ -6,6 +6,8 @@ import com.mahashri.mahashrimart.model.OrderStatus;
 import com.mahashri.mahashrimart.model.Product;
 import com.mahashri.mahashrimart.model.User;
 import com.mahashri.mahashrimart.util.ServletUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @WebServlet({"/admin", "/admin/users", "/admin/orders", "/admin/products", "/admin/products/remove", "/admin/orders/update"})
 public class AdminServlet extends ServletUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(AdminServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -102,7 +106,8 @@ public class AdminServlet extends ServletUtil {
                 services(request).products().adminDelete(id);
             }
         } catch (Exception ex) {
-            // fall through - still redirect either way
+            // Still redirect either way, but write the problem to the log.
+            log.error("Admin could not remove product {}", id, ex);
         }
         redirect(request, response, "/admin/products");
     }
@@ -116,8 +121,7 @@ public class AdminServlet extends ServletUtil {
         try {
             OrderStatus newStatus = OrderStatus.valueOf(statusParam);
             services(request).orders().adminUpdateStatus(orderId, newStatus);
-            redirect(request, response, redirectBase + "updated=" + orderId +
-                    (refFilter != null && !refFilter.isBlank() ? "" : ""));
+            redirect(request, response, redirectBase + "updated=" + orderId);
         } catch (ValidationException ex) {
             redirect(request, response, redirectBase + "error=" + java.net.URLEncoder.encode(ex.getMessage(), "UTF-8"));
         } catch (IllegalArgumentException ex) {

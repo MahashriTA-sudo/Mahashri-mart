@@ -1,9 +1,7 @@
 package com.mahashri.mahashrimart.controller;
 
 import com.mahashri.mahashrimart.model.CartItem;
-import com.mahashri.mahashrimart.model.User;
 import com.mahashri.mahashrimart.util.ServletUtil;
-import com.mahashri.mahashrimart.util.ValidationUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
