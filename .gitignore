@@ -4,3 +4,7 @@ target/
 .vscode/
 *.class
 *.log
+
+# Secrets and local config (never commit these)
+.env
+config.properties
