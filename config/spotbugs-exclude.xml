@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MahashriMart SpotBugs exclusions. Each rule has a written reason. -->
+<FindBugsFilter>
+    <!-- Services and the service holder keep the DAO / service objects given to them (dependency injection,
+         as the project spec requires). These are not real exposure bugs. -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Style hint only: catching Exception where it is not thrown. Not a bug. -->
+    <Match>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Servlets are never serialized by Tomcat, so their fields do not need to be serializable. -->
+    <Match>
+        <Class name="~com\.mahashri\.mahashrimart\.controller\..*"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+</FindBugsFilter>

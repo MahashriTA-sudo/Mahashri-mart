@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!-- MahashriMart Checkstyle rules.
+     Small, practical rule set: naming rules from the project spec, plus common bug-prone patterns.
+
+     Team style decisions (with reasons):
+     - Loggers may be named "log" (common Java habit), so ConstantName also allows "log".
+     - Star imports are allowed for java.sql, javax.servlet and our own dao package
+       (these packages are used heavily in JDBC and servlet code).
+     - Brace-style and end-of-file-newline checks are not enforced (cosmetic only). -->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="warning"/>
+
+    <module name="TreeWalker">
+        <!-- Naming: classes PascalCase, methods/variables camelCase, constants UPPER_SNAKE_CASE, packages lowercase -->
+        <module name="PackageName"/>
+        <module name="TypeName"/>
+        <module name="MethodName"/>
+        <module name="MemberName"/>
+        <module name="ParameterName"/>
+        <module name="LocalVariableName"/>
+        <module name="ConstantName">
+            <property name="format" value="^(log|[A-Z][A-Z0-9]*(_[A-Z0-9]+)*)$"/>
+        </module>
+
+        <!-- Imports -->
+        <module name="AvoidStarImport">
+            <property name="excludes" value="java.sql,javax.servlet,com.mahashri.mahashrimart.dao"/>
+        </module>
+        <module name="UnusedImports"/>
+        <module name="RedundantImport"/>
+
+        <!-- Bug-prone patterns -->
+        <module name="EqualsHashCode"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <module name="MissingSwitchDefault"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- Style -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+        <module name="UpperEll"/>
+        <module name="ArrayTypeStyle"/>
+    </module>
+</module>

@@ -2,7 +2,6 @@ package com.mahashri.mahashrimart.util;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public final class TransactionManager {
     @FunctionalInterface
