@@ -2,6 +2,18 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.5.0] - 2026-10-10
+Home page quick actions and login page polish.
+- **Home page quick actions**: each product card now shows stock ("X available" or "Out of stock"), and logged-in buyers get **Add to cart** and **Buy** buttons without opening the product page
+- **Wishlist heart on cards**: a small heart beside the product name adds or removes the product from the wishlist (filled heart = saved). The page returns to the products area
+- **Logged-out view**: product cards show a "Log in to purchase" button and no heart
+- **Buy now** button added to the product page (opens checkout)
+- **Cart notice**: a green "Added to your cart" message appears on the home page after Add to cart
+- **Reviews section redesigned**: "Customer reviews" heading with average score, review cards in a 2-column grid, grey stars for empty stars, and the "Write a review" form inside a card
+- **Login page**: show/hide password button and a demo accounts box (buyer, seller, admin)
+- `CartAddServlet` accepts an optional `next` field (`checkout` or `home`); `WishlistServlet` accepts `from=home`; `HomeServlet` sends `wishedIds` to the page
+- No database changes. 102 tests in total, all passing
+
 ## [v1.4.1] - 2026-10-08
 Bug fix release.
 - **Fix**: an admin could cancel a DELIVERED order. This is now blocked with the message "A DELIVERED order cannot be cancelled."

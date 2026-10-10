@@ -44,6 +44,13 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 3. Click **Remove**. Expected: the product disappears.
 4. Log out and open /wishlist. Expected: redirect to login.
 
+## 8. Home page quick actions and login page
+1. Open the Login page. Expected: a **Show** button in the password box and a **Demo accounts** box.
+2. Log in as `buyer1@mahashri.com` and open the home page. Expected: each product card shows stock text, **Add to cart**, **Buy**, and a small heart beside the product name.
+3. Click the heart. Expected: it changes between empty and filled, and the page stays at the products area.
+4. Click **Buy** on a card. Expected: the checkout page opens.
+5. Log out and open the home page. Expected: cards show **Log in to purchase** and no heart.
+
 ## Test Results Table - Local run
 
 Environment: local run at http://localhost:8080 (in-memory database), version v1.3.0.
@@ -63,7 +70,7 @@ Environment: local run at http://localhost:8080 (in-memory database), version v1
 
 ## Test Results Table - Live site
 
-Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0 (T17 tested after the PR #5 bug fix). (Render restarts reset the in-memory data, so order numbers start again from #1.)
+Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0 (T17 tested after the PR #5 bug fix, T18 tested after the v1.5.0 release). (Render restarts reset the in-memory data, so order numbers start again from #1.)
 
 | ID | What I test | Expected result | Actual result | Pass/Fail |
 |----|-------------|-----------------|---------------|-----------|
@@ -74,7 +81,8 @@ Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0 (T
 | T15 | Open /wishlist while logged out | Redirect to login | Logged out, opened /wishlist, redirected to the Login page | Pass |
 | T16 | Register, browse, order, review (end to end) | Every step works without errors | Registered a new buyer, logged in, browsed Magazine File Holder (500 available), ordered it (Order #2), submitted a review (4 stars, "good") | Pass |
 | T17 | Admin tries to cancel a DELIVERED order (bug fix, PR #5) | Cancel is refused and the order stays DELIVERED | Admin set Order #1 (DELIVERED) to CANCELLED, message "A DELIVERED order cannot be cancelled." shown and status stayed DELIVERED | Pass |
+| T18 | Home page quick actions and login page (v1.5.0) | Cards show stock, Add to cart, Buy and a heart beside the name. Buy opens checkout. Login page has Show button and demo box. Logged-out cards show "Log in to purchase" and no heart | Health check showed UP/UP. Login page had the Show button and Demo accounts box. As buyer1, cards showed stock text, Add to cart, Buy and a heart beside the product name (filled for saved items). Buy opened the checkout page. After Log out, cards showed "Log in to purchase" and no heart | Pass |
 
 ## Result
-Local run: 10 of 10 passed (6 Oct 2026). Live site: 7 of 7 passed (T11 to T16 on 7 Oct 2026, T17 on 8 Oct 2026).
+Local run: 10 of 10 passed (6 Oct 2026). Live site: 8 of 8 passed (T11 to T16 on 7 Oct 2026, T17 on 8 Oct 2026, T18 on 10 Oct 2026).
 Tested by: Mahashri T A   All checks passed: Yes
