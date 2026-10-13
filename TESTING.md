@@ -5,7 +5,7 @@ Test accounts (password: `password`): buyer1@mahashri.com, seller1@mahashri.com,
 
 ## 1. Automated tests
 1. Run `mvn clean verify`.
-2. Expected result: `Tests run: 102, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
+2. Expected result: `Tests run: 103, Failures: 0, Errors: 0` and `BUILD SUCCESS`.
 3. The same command also runs Checkstyle and SpotBugs. Expected: 0 Checkstyle violations and "BugInstance size is 0". The build fails if a new problem appears.
 
 ## 2. Buyer flow
@@ -106,7 +106,8 @@ Environment: deployed site https://mahashri-mart.onrender.com, version v1.4.0 (T
 | T16 | Register, browse, order, review (end to end) | Every step works without errors | Registered a new buyer, logged in, browsed Magazine File Holder (500 available), ordered it (Order #2), submitted a review (4 stars, "good") | Pass |
 | T17 | Admin tries to cancel a DELIVERED order (bug fix, PR #5) | Cancel is refused and the order stays DELIVERED | Admin set Order #1 (DELIVERED) to CANCELLED, message "A DELIVERED order cannot be cancelled." shown and status stayed DELIVERED | Pass |
 | T18 | Home page quick actions and login page (v1.5.0) | Cards show stock, Add to cart, Buy and a heart beside the name. Buy opens checkout. Login page has Show button and demo box. Logged-out cards show "Log in to purchase" and no heart | Health check showed UP/UP. Login page had the Show button and Demo accounts box. As buyer1, cards showed stock text, Add to cart, Buy and a heart beside the product name (filled for saved items). Buy opened the checkout page. After Log out, cards showed "Log in to purchase" and no heart | Pass |
+| T20 | Seller sees buyer details on Incoming orders (v1.6.0) | After a buyer orders, the seller's Incoming orders page shows the buyer name and email | As buyer1, I placed an order. As the seller, Incoming orders showed Order #1 (Color Pencils Set, Rs 299) with "Buyer: Riya Sharma - buyer1@mahashri.com" | Pass |
 
 ## Result
-Local run: 11 of 11 passed (T1 to T10 on 6 Oct 2026, T19 load test on 10 Oct 2026). Live site: 8 of 8 passed (T11 to T16 on 7 Oct 2026, T17 on 8 Oct 2026, T18 on 10 Oct 2026).
+Local run: 11 of 11 passed (T1 to T10 on 6 Oct 2026, T19 load test on 10 Oct 2026). Live site: 9 of 9 passed (T11 to T16 on 7 Oct 2026, T17 on 8 Oct 2026, T18 on 10 Oct 2026, T20 on 13 Oct 2026).
 Tested by: Mahashri T A   All checks passed: Yes

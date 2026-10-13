@@ -2,6 +2,13 @@
 
 All notable changes to MahashriMart are documented in this file.
 
+## [v1.6.0] - 2026-10-13
+Seller sees buyer details.
+- **Seller orders page**: each order on Incoming orders now shows the buyer's name and email
+- `Order` has two new fields: `buyerName` and `buyerEmail`
+- `JdbcOrderDao.findBySellerId` now joins the `users` table to read the buyer's name and email. Buyer and admin pages are not changed
+- New DAO test: `findBySellerIdReturnsBuyerNameAndEmail`
+- No database changes. 103 tests in total, all passing
 ## [v1.5.1] - 2026-10-10
 Maintenance release: static code analysis.
 - **Checkstyle and SpotBugs** added to the Maven build (phase `verify`). The build now fails on any Checkstyle warning or SpotBugs finding, so GitHub Actions CI runs both tools on every push
