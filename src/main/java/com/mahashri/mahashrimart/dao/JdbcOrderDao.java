@@ -84,12 +84,10 @@ public class JdbcOrderDao extends JdbcDao implements OrderDao {
 
     @Override
     public List<Order> findBySellerId(long sellerId) throws SQLException {
-        String orderSql = "SELECT DISTINCT o.id, o.buyer_id, o.status, o.total_amount, o.created_at, o.updated_at, " +
-                "u.name AS buyer_name, u.email AS buyer_email " +
+        String orderSql = "SELECT DISTINCT o.id, o.buyer_id, o.status, o.total_amount, o.created_at, o.updated_at " +
                 "FROM orders o " +
                 "JOIN order_items oi ON oi.order_id = o.id " +
                 "JOIN products p ON p.id = oi.product_id " +
-                "JOIN users u ON u.id = o.buyer_id " +
                 "WHERE p.seller_id = ? " +
                 "ORDER BY o.created_at DESC, o.id DESC";
         String itemSql = "SELECT oi.id, oi.order_id, oi.product_id, p.name AS product_name, oi.quantity, oi.unit_price " +
@@ -102,8 +100,6 @@ public class JdbcOrderDao extends JdbcDao implements OrderDao {
             try (ResultSet result = orderStatement.executeQuery()) {
                 while (result.next()) {
                     Order order = mapOrder(result);
-                    order.setBuyerName(result.getString("buyer_name"));
-                    order.setBuyerEmail(result.getString("buyer_email"));
                     order.setItems(findItemsForSeller(connection, itemSql, order.getId(), sellerId));
                     orders.add(order);
                 }

@@ -11,8 +11,6 @@ import java.util.Locale;
 public class Order {
     private long id;
     private long buyerId;
-    private String buyerName;
-    private String buyerEmail;
     private OrderStatus status;
     private BigDecimal totalAmount;
     private LocalDateTime createdAt;
@@ -23,10 +21,6 @@ public class Order {
     public void setId(long id) { this.id = id; }
     public long getBuyerId() { return buyerId; }
     public void setBuyerId(long buyerId) { this.buyerId = buyerId; }
-    public String getBuyerName() { return buyerName; }
-    public void setBuyerName(String buyerName) { this.buyerName = buyerName; }
-    public String getBuyerEmail() { return buyerEmail; }
-    public void setBuyerEmail(String buyerEmail) { this.buyerEmail = buyerEmail; }
     public OrderStatus getStatus() { return status; }
     public void setStatus(OrderStatus status) { this.status = status; }
     public BigDecimal getTotalAmount() { return totalAmount; }

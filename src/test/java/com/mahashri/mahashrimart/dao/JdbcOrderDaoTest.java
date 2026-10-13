@@ -182,14 +182,4 @@ class JdbcOrderDaoTest {
         assertTrue(shipped.stream().allMatch(o -> o.getStatus() == OrderStatus.SHIPPED));
         assertTrue(orderDao.findAllByStatus(OrderStatus.CANCELLED).isEmpty());
     }
-
-    @Test
-    void findBySellerIdReturnsBuyerNameAndEmail() throws Exception {
-        createOrder(BUYER_1, OrderStatus.CONFIRMED, line(PRODUCT_A, 1, "99.00"));
-
-        List<Order> orders = orderDao.findBySellerId(SELLER_1);
-
-        assertEquals(1, orders.size());
-        assertEquals("Buyer One", orders.get(0).getBuyerName());
-        assertEquals("b1@test.com", orders.get(0).getBuyerEmail());
-    }}
+}
