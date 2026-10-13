@@ -53,6 +53,11 @@
                             </div>
                             <span class="status-pill status-pill--${order.status}"><c:out value="${order.status}"/></span>
                         </div>
+                        <p class="order-buyer">
+                            <strong>Buyer:</strong>
+                            <c:out value="${order.buyerName}"/>
+                            &middot; <c:out value="${order.buyerEmail}"/>
+                        </p>
                         <div class="order-items">
                             <c:forEach var="item" items="${order.items}">
                                 <div class="order-item">
@@ -61,7 +66,7 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <%-- Seller actions: CONFIRMED → SHIPPED, SHIPPED → DELIVERED --%>
+                        <%-- Seller actions: CONFIRMED to SHIPPED, SHIPPED to DELIVERED --%>
                         <c:if test="${order.status == 'CONFIRMED'}">
                             <div class="order-actions">
                                 <form method="post" action="<c:out value='${pageContext.request.contextPath}'/>/seller/orders/update"
